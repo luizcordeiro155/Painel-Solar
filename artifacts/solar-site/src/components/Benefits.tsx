@@ -63,7 +63,7 @@ export default function Benefits() {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground"
           >
-            Mais do que conforto — é um investimento inteligente que gera economia, sustentabilidade e valorização.
+            Mais do que conforto é um investimento inteligente que gera economia, sustentabilidade e valorização.
           </motion.p>
         </div>
 
