@@ -55,7 +55,7 @@ export default function HowItWorks() {
             transition={{ delay: 0.1 }}
             className="text-lg text-slate-400"
           >
-            Um processo simples e transparente. Nós cuidamos de tudo — você só aproveita o conforto.
+            Um processo simples e transparente. Nós cuidamos de tudo você só aproveita o conforto.
           </motion.p>
         </div>
 
