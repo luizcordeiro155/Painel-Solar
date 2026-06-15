@@ -47,7 +47,7 @@ export default function Offer() {
             </span>
           </h2>
           <p className="text-lg text-slate-300 leading-relaxed">
-            A WM Soluções cuida de tudo — da escolha do sistema à instalação e manutenção — para que você só se preocupe em aproveitar o conforto.
+            A WM Soluções cuida de tudo da escolha do sistema à instalação e manutenção para que você só se preocupe em aproveitar o conforto.
           </p>
         </motion.div>
 
