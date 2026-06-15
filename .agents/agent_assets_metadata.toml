@@ -1,0 +1,74 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "bHkVaj7Tb68vJDGHmQqpz"
+uri = "file://artifacts/solar-site/public/hero-bg.png"
+type = "image"
+title = "Modern home with solar panels"
+
+[[generated]]
+id = "ypeU8k5btCri7ak9jTTXS"
+uri = "file://artifacts/solar-site/public/about.png"
+type = "image"
+title = "Solar installation professional"
+
+[[generated]]
+id = "DQWipAdvjRR-t9qV5tlv7"
+uri = "file://artifacts/solar-site/public/service-residential.png"
+type = "image"
+title = "Residential solar"
+
+[[generated]]
+id = "ATskvjPkz4BzBCZCMqYBn"
+uri = "file://artifacts/solar-site/public/service-commercial.png"
+type = "image"
+title = "Commercial solar"
+
+[[generated]]
+id = "fgFkEKdCcmJv-I79vD31i"
+uri = "file://artifacts/solar-site/public/service-industrial.png"
+type = "image"
+title = "Industrial solar"
+
+[[generated]]
+id = "ezjCWhSIWfyHD8UjkxjeL"
+uri = "file://artifacts/solar-site/public/cta-bg.png"
+type = "image"
+title = "Solar panel close up dawn"
+
+[[generated]]
+id = "nHX0WrQDarpABj04UUHr4"
+uri = "file://attached_assets/generated_images/professional_solar_water_heater_ffdf.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "VII8e8vJxYBLFsfQxjT1D"
+uri = "file://attached_assets/generated_images/solar_thermal_water_heater_3db7.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "FQGpxoQAb6ozi6m7gmkcH"
+uri = "file://attached_assets/generated_images/solar_pool_heating_system_f699.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "u28swgQnPly5_G8rZX3xv"
+uri = "file://attached_assets/generated_images/solar_water_heater_system_ed1e.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "E4eEKqzIIaMK7i1AKpnkr"
+uri = "file://attached_assets/generated_images/close_up_of_evacuated_727d.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "buUzX2FrvtbRS3O_vYyJV"
+uri = "file://attached_assets/generated_images/commercial_building_with_solar_d4df.png"
+type = "image"
+title = "generated_image"
