@@ -112,9 +112,7 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="text-primary flex-shrink-0" size={16} />
                 <a
-                  href="https://mail.google.com/mail/?view=cm&fs=1&to=wmsolucoessolar@gmail.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:wmsolucoessolar@gmail.com"
                   className="text-sm hover:text-primary transition-colors break-all"
                 >
                   wmsolucoessolar@gmail.com
