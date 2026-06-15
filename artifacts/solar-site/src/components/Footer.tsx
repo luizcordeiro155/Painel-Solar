@@ -111,8 +111,13 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-primary flex-shrink-0" size={16} />
-                <a href="mailto:contato@wmsolucoes.com.br" className="text-sm hover:text-primary transition-colors break-all">
-                  contato@wmsolucoes.com.br
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=wmsolucoessolar@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm hover:text-primary transition-colors break-all"
+                >
+                  wmsolucoessolar@gmail.com
                 </a>
               </li>
               <li className="pt-1">
