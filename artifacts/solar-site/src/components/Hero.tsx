@@ -59,7 +59,7 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-lg md:text-xl text-slate-200 mb-4 max-w-2xl leading-relaxed"
           >
-            A <strong className="text-primary">WM Soluções</strong> instala aquecedores solares de alta qualidade para banho e piscina — em residências, comércios e condomínios. Tecnologia avançada, instalação profissional e atendimento humanizado.
+            A <strong className="text-primary">WM Soluções</strong> instala aquecedores solares de alta qualidade para banho e piscina em residências, comércios e condomínios. Tecnologia avançada, instalação profissional e atendimento humanizado.
           </motion.p>
 
           <motion.p
