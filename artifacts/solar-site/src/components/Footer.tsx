@@ -49,9 +49,8 @@ export default function Footer() {
             </p>
             <div className="flex gap-3 pt-1">
               {[
-                { icon: <Instagram size={17} />, href: "#", label: "Instagram" },
-                { icon: <Facebook size={17} />, href: "#", label: "Facebook" },
-                { icon: <Linkedin size={17} />, href: "#", label: "LinkedIn" },
+                { icon: <Instagram size={17} />, href: "https://www.instagram.com/wm__solucoes/", label: "Instagram" },
+      
               ].map(({ icon, href, label }) => (
                 <a
                   key={label}
