@@ -40,7 +40,7 @@ export default function Contact() {
             </span>
           </h2>
           <p className="text-lg text-slate-300 mb-4 max-w-2xl mx-auto leading-relaxed">
-            Fale agora com a WM Soluções. Nosso especialista vai analisar a sua necessidade e indicar o melhor sistema de aquecimento solar para você — sem compromisso.
+            Fale agora com a WM Soluções. Nosso especialista vai analisar a sua necessidade e indicar o melhor sistema de aquecimento solar para você sem compromisso.
           </p>
           <p className="text-base text-primary font-bold mb-10">
             Orçamento gratuito. Instalação profissional. Atendimento humanizado.
