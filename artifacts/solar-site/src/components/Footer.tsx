@@ -112,7 +112,7 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="text-primary flex-shrink-0" size={16} />
                 <a
-                  href="mailto:wmsolucoessolar@gmail.com"
+                  href="mailto:wmsolucoessolar@gmail.com?subject=Orçamento%20WM%20Soluções&body=Olá,%20gostaria%20de%20solicitar%20um%20orçamento."
                   className="text-sm hover:text-primary transition-colors break-all"
                 >
                   wmsolucoessolar@gmail.com
