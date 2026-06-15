@@ -21,7 +21,7 @@ export default function PromoBanner() {
       <span className="flex items-center justify-center gap-2 flex-wrap">
         <Tag size={15} className="flex-shrink-0" />
         <span>
-          Orçamento 100% Gratuito e Sem Compromisso — Economize até R$&nbsp;600 por mês na sua conta de luz
+          Orçamento 100% Gratuito e Sem Compromisso Economize até R$&nbsp;600 por mês na sua conta de luz
         </span>
         <span className="inline-flex items-center gap-1 underline underline-offset-2 font-bold">
           Fale Agora <ArrowRight size={13} />
