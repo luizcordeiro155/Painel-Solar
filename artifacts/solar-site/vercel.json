@@ -2,6 +2,17 @@
   "buildCommand": "pnpm run build:vercel",
   "outputDirectory": "dist",
   "framework": null,
+  "headers": [
+    {
+      "source": "/site-content.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
