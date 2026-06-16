@@ -34,7 +34,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1 space-y-5">
-            <a href="#" className="inline-flex items-center gap-3 group">
+            <a href="/" className="inline-flex items-center gap-3 group">
               <img
                 src="/logo.png"
                 alt="WM Soluções"
@@ -47,28 +47,21 @@ export default function Footer() {
             </a>
 
             <p className="text-sm text-slate-400 leading-relaxed">
-              Especialistas em aquecedores solares para banho e piscina. Equipamentos de alta qualidade, instalação profissional e atendimento humanizado para residências, comércios e condomínios.
+              Especialistas em aquecedores solares para banho e piscina.
+              Equipamentos de alta qualidade, instalação profissional e
+              atendimento humanizado para residências, comércios e condomínios.
             </p>
 
             <div className="flex gap-3 pt-1">
-              {[
-                {
-                  icon: <Instagram size={17} />,
-                  href: "https://www.instagram.com/wm__solucoes/",
-                  label: "Instagram",
-                },
-              ].map(({ icon, href, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
-                >
-                  {icon}
-                </a>
-              ))}
+              <a
+                href="https://www.instagram.com/wm__solucoes/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+              >
+                <Instagram size={17} />
+              </a>
             </div>
           </div>
 
@@ -77,6 +70,7 @@ export default function Footer() {
             <h3 className="text-white text-sm font-bold uppercase tracking-wider mb-5">
               Navegação
             </h3>
+
             <ul className="space-y-3">
               {navLinks.map(({ name, href }) => (
                 <li key={name}>
@@ -96,6 +90,7 @@ export default function Footer() {
             <h3 className="text-white text-sm font-bold uppercase tracking-wider mb-5">
               Soluções
             </h3>
+
             <ul className="space-y-3">
               {solutions.map(({ name, href }) => (
                 <li key={name}>
@@ -115,9 +110,13 @@ export default function Footer() {
             <h3 className="text-white text-sm font-bold uppercase tracking-wider mb-5">
               Contato
             </h3>
+
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="text-primary flex-shrink-0 mt-0.5" size={16} />
+                <MapPin
+                  className="text-primary flex-shrink-0 mt-0.5"
+                  size={16}
+                />
                 <span className="text-sm leading-relaxed">
                   Belo Horizonte — MG
                   <br />e Região Metropolitana
@@ -170,10 +169,17 @@ export default function Footer() {
             </p>
 
             <div className="flex gap-6">
-              <a href="#" className="hover:text-slate-400 transition-colors">
+              <a
+                href="/termos-de-uso"
+                className="hover:text-slate-400 transition-colors"
+              >
                 Termos de Uso
               </a>
-              <a href="#" className="hover:text-slate-400 transition-colors">
+
+              <a
+                href="/politica-de-privacidade"
+                className="hover:text-slate-400 transition-colors"
+              >
                 Política de Privacidade
               </a>
             </div>
