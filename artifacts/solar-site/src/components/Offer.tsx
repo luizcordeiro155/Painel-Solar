@@ -1,24 +1,31 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, ArrowRight, Flame, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSiteContent, whatsappUrl } from "@/lib/siteContent";
 
 export default function Offer() {
+  const content = useSiteContent();
+  const offer = content?.offer;
+  const contact = content?.contact;
+
   const handleWhatsApp = () => {
     window.open(
-      "https://wa.me/5531997544806?text=Ol%C3%A1%2C%20WM%20Solu%C3%A7%C3%B5es!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20aquecedor%20solar.",
+      whatsappUrl(contact?.phoneRaw || "5531997544806", contact?.whatsappMessageOffer || contact?.whatsappMessage || "Olá, WM Soluções! Gostaria de um orçamento para aquecedor solar."),
       "_blank"
     );
   };
 
-  const included = [
-    "Consultoria técnica personalizada (incluso)",
-    "Dimensionamento do sistema ideal para sua demanda",
-    "Instalação por equipe certificada e experiente",
-    "Equipamentos de alta qualidade com garantia de fábrica",
-    "Orientação completa sobre uso e cuidados",
-    "Suporte pós-instalação da WM Soluções",
-    "Financiamento facilitado com parcelas acessíveis",
-  ];
+  const included = offer?.included?.length
+    ? offer.included
+    : [
+        "Consultoria técnica personalizada (incluso)",
+        "Dimensionamento do sistema ideal para sua demanda",
+        "Instalação por equipe certificada e experiente",
+        "Equipamentos de alta qualidade com garantia de fábrica",
+        "Orientação completa sobre uso e cuidados",
+        "Suporte pós-instalação da WM Soluções",
+        "Financiamento facilitado com parcelas acessíveis",
+      ];
 
   return (
     <section
@@ -38,16 +45,16 @@ export default function Offer() {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/20 text-primary border border-primary/30 text-sm font-semibold mb-6">
-            <Gift size={15} /> Orçamento 100% Gratuito
+            <Gift size={15} /> {offer?.eyebrow || "Orçamento 100% Gratuito"}
           </span>
           <h2 className="text-3xl md:text-5xl font-black mb-4 leading-tight tracking-tight">
-            Água Quente todo dia com{" "}
+            {offer?.titleStart || "Água Quente todo dia com"}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-300">
-              Tecnologia Solar de Verdade
+              {offer?.titleHighlight || "Tecnologia Solar de Verdade"}
             </span>
           </h2>
           <p className="text-lg text-slate-300 leading-relaxed">
-            A WM Soluções cuida de tudo da escolha do sistema à instalação e manutenção para que você só se preocupe em aproveitar o conforto.
+            {offer?.description || "A WM Soluções cuida de tudo da escolha do sistema à instalação e manutenção para que você só se preocupe em aproveitar o conforto."}
           </p>
         </motion.div>
 
@@ -62,14 +69,14 @@ export default function Offer() {
               <Flame size={20} className="text-white" />
             </div>
             <h3 className="text-xl md:text-2xl font-bold">
-              Tudo incluso no seu projeto solar
+              {offer?.cardTitle || "Tudo incluso no seu projeto solar"}
             </h3>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4 mb-10">
-            {included.map((item, i) => (
+            {included.map((item: string, i: number) => (
               <motion.div
-                key={i}
+                key={item}
                 initial={{ opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -89,10 +96,10 @@ export default function Offer() {
               className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-black text-lg h-14 px-10 rounded-full shadow-xl shadow-primary/30 hover:-translate-y-1 transition-all"
               data-testid="offer-cta-button"
             >
-              Quero Meu Orçamento Grátis <ArrowRight className="ml-2" size={20} />
+              {offer?.button || "Quero Meu Orçamento Grátis"} <ArrowRight className="ml-2" size={20} />
             </Button>
             <p className="text-slate-400 text-sm text-center sm:text-left">
-              Sem compromisso. Resposta em minutos.
+              {offer?.note || "Sem compromisso. Resposta em minutos."}
             </p>
           </div>
         </motion.div>
