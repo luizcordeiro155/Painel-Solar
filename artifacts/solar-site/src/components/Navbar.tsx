@@ -2,10 +2,25 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useSiteContent, whatsappUrl } from "@/lib/siteContent";
+
+const fallbackNavLinks = [
+  { name: "Sobre", href: "#sobre" },
+  { name: "Sistemas", href: "#servicos" },
+  { name: "Benefícios", href: "#beneficios" },
+  { name: "Como Funciona", href: "#como-funciona" },
+  { name: "FAQ", href: "#faq" },
+];
 
 export default function Navbar() {
+  const content = useSiteContent();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const brand = content?.brand;
+  const contact = content?.contact;
+  const navbar = content?.navbar;
+  const navLinks = navbar?.links?.length ? navbar.links : fallbackNavLinks;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -13,17 +28,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Sobre", href: "#sobre" },
-    { name: "Sistemas", href: "#servicos" },
-    { name: "Benefícios", href: "#beneficios" },
-    { name: "Como Funciona", href: "#como-funciona" },
-    { name: "FAQ", href: "#faq" },
-  ];
-
   const handleWhatsApp = () => {
     window.open(
-      "https://wa.me/5531997544806?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20de%20aquecedor%20solar!",
+      whatsappUrl(contact?.phoneRaw || "5531997544806", contact?.whatsappMessage || "Olá! Gostaria de um orçamento de aquecedor solar!"),
       "_blank"
     );
   };
@@ -44,7 +51,6 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between gap-4">
-          {/* Logo */}
           <a
             href="#"
             onClick={(e) => {
@@ -54,8 +60,8 @@ export default function Navbar() {
             className="flex items-center gap-3 flex-shrink-0 group"
           >
             <img
-              src="/logo.png"
-              alt="WM Soluções"
+              src={brand?.logo || "/logo.png"}
+              alt={brand?.name || "WM Soluções"}
               className="h-12 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform"
             />
 
@@ -64,13 +70,12 @@ export default function Navbar() {
                 isScrolled ? "text-slate-900" : "text-white"
               }`}
             >
-              WM <span className="text-primary">Soluções</span>
+              {brand?.namePart1 || "WM"} <span className="text-primary">{brand?.namePart2 || "Soluções"}</span>
             </span>
           </a>
 
-          {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
+            {navLinks.map((link: any) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -90,15 +95,14 @@ export default function Navbar() {
               onClick={handleWhatsApp}
               className="bg-primary text-white hover:bg-primary/90 font-bold whitespace-nowrap px-5"
             >
-              Pedir Orçamento
+              {navbar?.button || "Pedir Orçamento"}
             </Button>
           </div>
 
-          {/* Mobile Toggle */}
           <button
             className="lg:hidden p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Menu"
+            aria-label={navbar?.menuLabel || "Menu"}
           >
             {mobileMenuOpen ? (
               <X size={24} className={isScrolled ? "text-slate-900" : "text-white"} />
@@ -109,7 +113,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -119,7 +122,7 @@ export default function Navbar() {
             transition={{ duration: 0.2 }}
             className="absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl py-4 px-6 lg:hidden flex flex-col gap-1"
           >
-            {navLinks.map((link) => (
+            {navLinks.map((link: any) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -137,7 +140,7 @@ export default function Navbar() {
               onClick={handleWhatsApp}
               className="w-full mt-3 bg-primary text-white font-bold"
             >
-              Pedir Orçamento Agora
+              {navbar?.mobileButton || "Pedir Orçamento Agora"}
             </Button>
           </motion.div>
         )}
