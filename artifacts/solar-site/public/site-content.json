@@ -3,7 +3,16 @@
     "name": "WM Soluções",
     "logo": "/logo.png",
     "favicon": "/favicon.png",
-    "ogImage": "/og-image.png"
+    "ogImage": "/og-image.png",
+    "namePart1": "WM",
+    "namePart2": "Soluções"
+  },
+  "seo": {
+    "title": "WM Soluções — Aquecedores Solares",
+    "description": "WM Soluções: especialistas em aquecedores solares para banho e piscina em Belo Horizonte e região. Instalação profissional, manutenção e orçamento gratuito.",
+    "keywords": "aquecedor solar, aquecimento solar, aquecedor solar belo horizonte, aquecimento piscina, sistema a vácuo, WM soluções, aquecedor solar MG",
+    "ogTitle": "WM Soluções — Aquecedores Solares",
+    "ogDescription": "Aquecedores solares para banho e piscina em BH e região. Orçamento gratuito, instalação profissional e atendimento rápido."
   },
   "contact": {
     "phone": "(31) 99754-4806",
@@ -12,26 +21,466 @@
     "city": "Belo Horizonte — MG",
     "region": "e Região Metropolitana",
     "instagram": "https://www.instagram.com/wm__solucoes/",
-    "whatsappMessage": "Olá! Gostaria de um orçamento de aquecedor solar!"
+    "whatsappMessage": "Olá! Gostaria de um orçamento de aquecedor solar!",
+    "whatsappMessageServices": "Olá! Gostaria de saber mais sobre os sistemas de aquecimento solar!",
+    "whatsappMessageSpecialist": "Olá! Gostaria de falar com um especialista da WM Soluções!",
+    "whatsappMessageOffer": "Olá, WM Soluções! Gostaria de um orçamento para aquecedor solar."
+  },
+  "navbar": {
+    "links": [
+      {
+        "name": "Sobre",
+        "href": "#sobre"
+      },
+      {
+        "name": "Sistemas",
+        "href": "#servicos"
+      },
+      {
+        "name": "Benefícios",
+        "href": "#beneficios"
+      },
+      {
+        "name": "Como Funciona",
+        "href": "#como-funciona"
+      },
+      {
+        "name": "FAQ",
+        "href": "#faq"
+      }
+    ],
+    "button": "Pedir Orçamento",
+    "mobileButton": "Pedir Orçamento Agora",
+    "menuLabel": "Menu"
   },
   "hero": {
     "background": "/hero-bg.png",
+    "backgroundAlt": "Aquecedor solar instalado em residência",
     "socialProof": "+500 clientes com água quente todos os dias",
     "titleLine1": "Água Quente o Ano",
     "titleLine2": "Todo com Energia Solar",
     "description": "A WM Soluções instala aquecedores solares de alta qualidade para banho e piscina em residências, comércios e condomínios. Tecnologia avançada, instalação profissional e atendimento humanizado.",
     "highlight": "Orçamento gratuito e sem compromisso. Resposta em minutos.",
     "primaryButton": "Quero Meu Orçamento Grátis",
-    "secondaryButton": "Falar com Especialista"
+    "secondaryButton": "Falar com Especialista",
+    "badges": [
+      "Banho e Piscina",
+      "Alta qualidade",
+      "Instalação profissional"
+    ]
   },
   "numbers": [
-    { "label": "Clientes Atendidos", "value": "500+" },
-    { "label": "Sistemas Instalados", "value": "620+" },
-    { "label": "Anos de Experiência", "value": "10+" },
-    { "label": "Cidades Atendidas", "value": "15+" }
+    {
+      "label": "Clientes Atendidos",
+      "value": "500+"
+    },
+    {
+      "label": "Sistemas Instalados",
+      "value": "620+"
+    },
+    {
+      "label": "Anos de Experiência",
+      "value": "10+"
+    },
+    {
+      "label": "Cidades Atendidas",
+      "value": "15+"
+    }
   ],
+  "services": {
+    "eyebrow": "Nossas Soluções",
+    "title": "Sistemas e Serviços Completos",
+    "description": "Atendemos todos os perfis: desde uma residência familiar até grandes condomínios e estabelecimentos comerciais.",
+    "segments": [
+      "Residencial",
+      "Comercial",
+      "Condomínios"
+    ],
+    "systemsTitle": "Tipos de Sistema",
+    "systems": [
+      {
+        "title": "Sistema Convencional",
+        "description": "Solução mais difundida no mercado. Utiliza coletores planos e boiler para aquecer a água de forma eficiente e econômica, ideal para quem busca boa relação custo-benefício.",
+        "tag": "Mais popular",
+        "button": "Saiba mais"
+      },
+      {
+        "title": "Sistema a Vácuo",
+        "description": "Tecnologia premium com tubos de vácuo que maximizam a captação de calor mesmo em dias nublados ou frios. Maior eficiência energética e desempenho superior em qualquer clima.",
+        "tag": "Alta eficiência",
+        "button": "Saiba mais"
+      },
+      {
+        "title": "Aquecimento de Piscinas",
+        "description": "Mantenha sua piscina na temperatura ideal o ano todo com coletores solares especializados. Conforto e economia em uma solução sustentável para piscinas residenciais e comerciais.",
+        "tag": "Conforto e lazer",
+        "button": "Saiba mais"
+      }
+    ],
+    "specializedTitle": "Serviços Especializados",
+    "specialized": [
+      {
+        "title": "Instalação Profissional",
+        "description": "Equipe técnica certificada realiza a instalação com segurança, rapidez e acabamento impecável. Do projeto à entrega, cuidamos de tudo."
+      },
+      {
+        "title": "Manutenção Preventiva e Corretiva",
+        "description": "Garantimos a longevidade e a eficiência do seu sistema com visitas de manutenção programadas e atendimento rápido em caso de falhas."
+      },
+      {
+        "title": "Consultoria Técnica Personalizada",
+        "description": "Analisamos o seu perfil de consumo, o espaço disponível e o orçamento para indicar o sistema ideal para a sua necessidade."
+      }
+    ]
+  },
+  "offer": {
+    "eyebrow": "Orçamento 100% Gratuito",
+    "titleStart": "Água Quente todo dia com",
+    "titleHighlight": "Tecnologia Solar de Verdade",
+    "description": "A WM Soluções cuida de tudo da escolha do sistema à instalação e manutenção para que você só se preocupe em aproveitar o conforto.",
+    "cardTitle": "Tudo incluso no seu projeto solar",
+    "included": [
+      "Consultoria técnica personalizada (incluso)",
+      "Dimensionamento do sistema ideal para sua demanda",
+      "Instalação por equipe certificada e experiente",
+      "Equipamentos de alta qualidade com garantia de fábrica",
+      "Orientação completa sobre uso e cuidados",
+      "Suporte pós-instalação da WM Soluções",
+      "Financiamento facilitado com parcelas acessíveis"
+    ],
+    "button": "Quero Meu Orçamento Grátis",
+    "note": "Sem compromisso. Resposta em minutos."
+  },
+  "benefits": {
+    "eyebrow": "Por que escolher",
+    "title": "Vantagens do Aquecimento Solar",
+    "description": "Mais do que conforto é um investimento inteligente que gera economia, sustentabilidade e valorização.",
+    "items": [
+      {
+        "title": "Economia na Conta de Energia",
+        "description": "O aquecimento de água é responsável por até 30% do consumo elétrico de uma residência. Com energia solar, esse custo cai drasticamente."
+      },
+      {
+        "title": "Valorização do Imóvel",
+        "description": "Imóveis com aquecedor solar são mais valorizados no mercado. É um investimento que se paga e ainda agrega valor ao seu patrimônio."
+      },
+      {
+        "title": "Sustentabilidade Real",
+        "description": "Utilize energia limpa e renovável para aquecer sua água. Reduza a emissão de carbono e contribua para um planeta mais equilibrado."
+      },
+      {
+        "title": "Conforto o Ano Todo",
+        "description": "Água quente disponível todos os dias, independente da estação. Os sistemas mais avançados mantêm a temperatura mesmo em dias frios e nublados."
+      },
+      {
+        "title": "Baixa Manutenção",
+        "description": "Os sistemas de aquecimento solar são extremamente duráveis e simples de manter. Com manutenção adequada, funcionam por mais de 20 anos."
+      },
+      {
+        "title": "Equipamentos Garantidos",
+        "description": "Trabalhamos apenas com equipamentos de fabricantes certificados, com garantia de fábrica e suporte técnico completo da WM Soluções."
+      }
+    ]
+  },
+  "about": {
+    "image": "/about.png",
+    "imageAlt": "Equipe WM Soluções realizando instalação profissional de aquecedor solar",
+    "badgeNumber": "100%",
+    "badgeText": "Focados na satisfação do cliente",
+    "eyebrow": "Quem Somos",
+    "title": "Especialistas em aquecimento solar com tecnologia de ponta",
+    "paragraph1": "A WM Soluções é especializada na venda e instalação de aquecedores solares para banho e piscina. Trabalhamos com equipamentos de alta qualidade e tecnologia avançada, ideais para residências, comércios e condomínios.",
+    "paragraph2": "Nosso compromisso vai além da instalação: oferecemos manutenção preventiva e corretiva, consultoria técnica personalizada e um atendimento ágil e humanizado que coloca o cliente sempre em primeiro lugar.",
+    "diferenciais": [
+      "Equipamentos de alta qualidade com tecnologia avançada",
+      "Atendimento rápido, humanizado e sem burocracia",
+      "Técnicos certificados e experientes",
+      "Projetos personalizados para cada cliente",
+      "Suporte completo: do projeto à manutenção",
+      "Atendemos residências, comércios e condomínios"
+    ],
+    "button": "Falar com um Especialista"
+  },
+  "howItWorks": {
+    "eyebrow": "Do contato à água quente",
+    "title": "Como Funciona",
+    "description": "Um processo simples e transparente. Nós cuidamos de tudo você só aproveita o conforto.",
+    "steps": [
+      {
+        "title": "Fale Conosco",
+        "description": "Entre em contato pelo WhatsApp. Nosso atendimento é rápido e humanizado sem burocracia e sem enrolação."
+      },
+      {
+        "title": "Consultoria e Orçamento",
+        "description": "Um técnico especialista analisa seu perfil de consumo, o espaço disponível e indica o sistema ideal. Orçamento detalhado e transparente."
+      },
+      {
+        "title": "Instalação Profissional",
+        "description": "Nossa equipe certificada realiza a instalação com eficiência e cuidado. Em geral, concluída em 1 dia, com acabamento impecável."
+      },
+      {
+        "title": "Água Quente Garantida",
+        "description": "A partir do primeiro dia, seu aquecedor solar já está funcionando. Você ainda conta com suporte e manutenção da WM Soluções."
+      }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "Projetos Realizados",
+    "title": "Nossos Trabalhos",
+    "description": "Cada instalação é única. Veja alguns dos projetos que entregamos com qualidade e profissionalismo.",
+    "closeLabel": "Fechar",
+    "prevLabel": "Anterior",
+    "nextLabel": "Próximo",
+    "imageLabelPrefix": "Imagem",
+    "projects": [
+      {
+        "src": "/gallery-1.png",
+        "alt": "Instalação de aquecedor solar residencial com tubos a vácuo",
+        "label": "Sistema a Vácuo — Residencial"
+      },
+      {
+        "src": "/gallery-2.png",
+        "alt": "Coletores solares planos instalados em residência moderna",
+        "label": "Sistema Convencional — Residencial"
+      },
+      {
+        "src": "/gallery-3.png",
+        "alt": "Aquecimento solar de piscina com coletores no telhado",
+        "label": "Aquecimento de Piscina"
+      },
+      {
+        "src": "/gallery-4.png",
+        "alt": "Sistema solar em condomínio com múltiplos coletores organizados",
+        "label": "Sistema Solar — Condomínio"
+      },
+      {
+        "src": "/gallery-5.png",
+        "alt": "Detalhe dos tubos a vácuo do sistema de aquecimento solar",
+        "label": "Detalhe — Tubos a Vácuo"
+      },
+      {
+        "src": "/gallery-6.png",
+        "alt": "Aquecimento solar instalado em estabelecimento comercial",
+        "label": "Sistema Solar — Comercial"
+      }
+    ]
+  },
+  "testimonials": {
+    "eyebrow": "Depoimentos",
+    "title": "O que nossos clientes dizem",
+    "description": "A satisfação dos nossos clientes é o nosso maior resultado.",
+    "items": [
+      {
+        "name": "Fernanda Oliveira",
+        "role": "Proprietária Residencial — BH/MG",
+        "content": "Excelente atendimento desde o primeiro contato. O técnico foi muito atencioso, explicou tudo direitinho e a instalação foi feita em um dia. Minha conta de luz caiu bastante. Super recomendo a WM Soluções!",
+        "initials": "FO"
+      },
+      {
+        "name": "Ricardo Mendes",
+        "role": "Síndico de Condomínio — BH/MG",
+        "content": "Contratamos a WM Soluções para instalar aquecedores solares no condomínio. O serviço foi impecável, o prazo foi cumprido e os moradores estão muito satisfeitos com o resultado. Parceria excelente!",
+        "initials": "RM"
+      },
+      {
+        "name": "Luciana Ferreira",
+        "role": "Proprietária de Pousada — MG",
+        "content": "Precisava de aquecimento para a piscina e para os quartos. A equipe da WM fez uma consultoria completa e entregou a solução perfeita para a pousada. Atendimento humanizado e trabalho de qualidade.",
+        "initials": "LF"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Tire suas dúvidas",
+    "title": "Perguntas Frequentes",
+    "description": "Ainda tem dúvidas? Fale diretamente com um especialista pelo WhatsApp.",
+    "items": [
+      {
+        "question": "Qual a diferença entre o sistema convencional e o sistema a vácuo?",
+        "answer": "O sistema convencional utiliza coletores planos e é a opção mais econômica, funcionando muito bem em regiões com boa incidência solar. Já o sistema a vácuo usa tubos de alto vácuo que isolam o calor com mais eficiência, sendo ideal para regiões mais frias ou para quem deseja máxima performance mesmo em dias nublados. Nossa consultoria indica o melhor sistema para sua situação."
+      },
+      {
+        "question": "O aquecedor solar funciona em dias nublados ou no inverno?",
+        "answer": "Sim! O aquecedor solar capta a energia solar difusa, presente mesmo em dias nublados. Em dias muito frios ou com pouca incidência solar, os sistemas contam com resistência elétrica auxiliar para garantir a temperatura da água, assegurando conforto o ano todo."
+      },
+      {
+        "question": "Quanto tempo leva a instalação?",
+        "answer": "Na maioria dos casos, a instalação é concluída em um único dia. O prazo pode variar dependendo do porte do sistema, mas sempre comunicamos com antecedência o cronograma completo."
+      },
+      {
+        "question": "Por quanto tempo o equipamento dura?",
+        "answer": "Com manutenção adequada, os coletores solares têm vida útil superior a 20 anos e o boiler de 15 a 20 anos. A WM Soluções trabalha com marcas renomadas e oferece manutenção preventiva para garantir a longevidade do seu investimento."
+      },
+      {
+        "question": "A WM Soluções atende condomínios e empresas?",
+        "answer": "Sim! Atendemos residências, estabelecimentos comerciais e condomínios de todos os portes. Temos soluções dimensionadas para cada tipo de demanda, sempre com consultoria técnica personalizada."
+      },
+      {
+        "question": "Como funciona a manutenção preventiva?",
+        "answer": "Realizamos visitas periódicas para verificar o funcionamento do sistema, checar conexões, limpar os coletores e garantir que tudo está operando com eficiência máxima."
+      }
+    ]
+  },
+  "contactSection": {
+    "background": "/cta-bg.png",
+    "backgroundAlt": "Aquecedor solar instalado",
+    "eyebrow": "Atendimento rápido — resposta em minutos",
+    "titleStart": "Pronto para ter",
+    "titleHighlight": "água quente todos os dias?",
+    "description": "Fale agora com a WM Soluções. Nosso especialista vai analisar a sua necessidade e indicar o melhor sistema de aquecimento solar para você sem compromisso.",
+    "highlight": "Orçamento gratuito. Instalação profissional. Atendimento humanizado.",
+    "button": "Falar com a WM Soluções",
+    "phonePrefix": "Ou ligue diretamente:"
+  },
   "footer": {
     "description": "Especialistas em aquecedores solares para banho e piscina. Equipamentos de alta qualidade, instalação profissional e atendimento humanizado para residências, comércios e condomínios.",
-    "copyright": "WM Soluções — Aquecedores Solares."
+    "navTitle": "Navegação",
+    "solutionTitle": "Soluções",
+    "contactTitle": "Contato",
+    "whatsappButton": "Falar no WhatsApp",
+    "copyright": "WM Soluções — Aquecedores Solares.",
+    "rights": "Todos os direitos reservados.",
+    "termsLabel": "Termos de Uso",
+    "privacyLabel": "Política de Privacidade",
+    "navLinks": [
+      {
+        "name": "Sobre Nós",
+        "href": "#sobre"
+      },
+      {
+        "name": "Sistemas e Serviços",
+        "href": "#servicos"
+      },
+      {
+        "name": "Benefícios",
+        "href": "#beneficios"
+      },
+      {
+        "name": "Como Funciona",
+        "href": "#como-funciona"
+      },
+      {
+        "name": "Dúvidas Frequentes",
+        "href": "#faq"
+      },
+      {
+        "name": "Contato",
+        "href": "#contato"
+      }
+    ],
+    "solutions": [
+      {
+        "name": "Sistema Convencional",
+        "href": "#servicos"
+      },
+      {
+        "name": "Sistema a Vácuo",
+        "href": "#servicos"
+      },
+      {
+        "name": "Aquecimento de Piscinas",
+        "href": "#servicos"
+      },
+      {
+        "name": "Instalação Profissional",
+        "href": "#servicos"
+      },
+      {
+        "name": "Manutenção Preventiva",
+        "href": "#servicos"
+      },
+      {
+        "name": "Consultoria Técnica",
+        "href": "#servicos"
+      }
+    ]
+  },
+  "legal": {
+    "back": "← Voltar ao site",
+    "lastUpdate": "Última atualização: 2026.",
+    "terms": {
+      "title": "Termos de Uso",
+      "intro": "Ao acessar e utilizar o site da WM Soluções Aquecedores Solares, você concorda com estes Termos de Uso.",
+      "sections": [
+        {
+          "title": "1. Objetivo do site",
+          "text": "Este site tem como finalidade apresentar informações sobre serviços de aquecimento solar, instalação, manutenção, consultoria técnica e atendimento comercial da WM Soluções."
+        },
+        {
+          "title": "2. Solicitação de orçamento",
+          "text": "Os formulários, botões de WhatsApp, telefone e e-mail disponíveis no site servem para facilitar o contato entre o usuário e a empresa. O envio de uma solicitação não garante contratação automática, disponibilidade imediata, preço fixo ou aprovação de serviço."
+        },
+        {
+          "title": "3. Informações do site",
+          "text": "Buscamos manter as informações atualizadas, porém detalhes sobre serviços, valores, prazos, regiões de atendimento e disponibilidade podem sofrer alterações sem aviso prévio."
+        },
+        {
+          "title": "4. Responsabilidades do usuário",
+          "text": "O usuário se compromete a fornecer informações verdadeiras ao entrar em contato, não utilizar o site para fins ilícitos e não tentar prejudicar o funcionamento da página."
+        },
+        {
+          "title": "5. Propriedade intelectual",
+          "text": "Textos, imagens, identidade visual, logotipos, elementos gráficos e conteúdos presentes neste site pertencem à WM Soluções ou são utilizados com autorização. A reprodução sem autorização é proibida."
+        },
+        {
+          "title": "6. Links externos",
+          "text": "O site pode conter links para WhatsApp, Instagram, Gmail ou outros serviços externos. A WM Soluções não se responsabiliza por políticas, funcionamento ou conteúdos de plataformas de terceiros."
+        },
+        {
+          "title": "7. Alterações dos termos",
+          "text": "Estes Termos de Uso podem ser atualizados a qualquer momento para refletir mudanças nos serviços, no site ou em exigências legais."
+        },
+        {
+          "title": "8. Contato",
+          "text": "Em caso de dúvidas, entre em contato pelo e-mail:"
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Política de Privacidade",
+      "intro": "Esta Política de Privacidade explica como a WM Soluções Aquecedores Solares trata as informações fornecidas por usuários que acessam o site ou entram em contato conosco.",
+      "sections": [
+        {
+          "title": "1. Dados que podemos coletar",
+          "text": "Podemos coletar informações fornecidas voluntariamente pelo usuário, como nome, telefone, e-mail, cidade, mensagem enviada, interesse em orçamento e demais dados necessários para atendimento."
+        },
+        {
+          "title": "2. Como usamos os dados",
+          "text": "Os dados são utilizados para responder solicitações, enviar orçamentos, prestar atendimento, agendar serviços, tirar dúvidas e melhorar a comunicação com clientes e interessados."
+        },
+        {
+          "title": "3. Compartilhamento de informações",
+          "text": "A WM Soluções não vende dados pessoais. Informações podem ser compartilhadas apenas quando necessário para atendimento, cumprimento de obrigações legais ou operação dos serviços contratados."
+        },
+        {
+          "title": "4. Cookies e tecnologias de navegação",
+          "text": "O site pode utilizar cookies ou ferramentas de análise para entender o uso da página, melhorar a experiência do usuário e acompanhar o desempenho das campanhas e conteúdos."
+        },
+        {
+          "title": "5. WhatsApp, Instagram e e-mail",
+          "text": "Ao clicar em botões de contato, o usuário pode ser direcionado para plataformas externas, como WhatsApp, Instagram ou Gmail. Essas plataformas possuem políticas próprias de privacidade e uso."
+        },
+        {
+          "title": "6. Segurança dos dados",
+          "text": "Adotamos medidas razoáveis para proteger as informações recebidas, evitando acessos não autorizados, uso indevido, perda ou alteração indevida dos dados."
+        },
+        {
+          "title": "7. Direitos do usuário",
+          "text": "O usuário pode solicitar acesso, correção, atualização ou exclusão de seus dados pessoais entrando em contato pelo e-mail informado nesta política."
+        },
+        {
+          "title": "8. Retenção das informações",
+          "text": "As informações podem ser mantidas pelo tempo necessário para atendimento, relacionamento comercial, cumprimento de obrigações legais ou defesa de direitos."
+        },
+        {
+          "title": "9. Alterações nesta política",
+          "text": "Esta Política de Privacidade pode ser atualizada periodicamente. Recomendamos que o usuário consulte esta página sempre que desejar."
+        },
+        {
+          "title": "10. Contato",
+          "text": "Para dúvidas ou solicitações relacionadas à privacidade, entre em contato pelo e-mail:"
+        }
+      ]
+    }
   }
 }
