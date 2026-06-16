@@ -51,13 +51,21 @@ export default function Navbar() {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            className="flex items-center flex-shrink-0 group"
+            className="flex items-center gap-3 flex-shrink-0 group"
           >
             <img
               src="/logo.png"
               alt="WM Soluções"
-              className="h-11 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+              className="h-12 md:h-14 w-auto object-contain group-hover:scale-105 transition-transform"
             />
+
+            <span
+              className={`text-xl md:text-2xl font-black tracking-tight ${
+                isScrolled ? "text-slate-900" : "text-white"
+              }`}
+            >
+              WM <span className="text-primary">Soluções</span>
+            </span>
           </a>
 
           {/* Desktop Nav */}
