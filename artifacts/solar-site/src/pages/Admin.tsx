@@ -28,6 +28,7 @@ export default function Admin() {
   const [content, setContent] = useState<AnyObject | null>(null);
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState("hero");
+  const [uploadingPath, setUploadingPath] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/site-content.json?v=" + Date.now())
@@ -151,6 +152,44 @@ export default function Admin() {
     );
   }
 
+  async function uploadImage(path: string[], file: File) {
+    const pathKey = path.join(".");
+    setUploadingPath(pathKey);
+
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+      try {
+        const response = await fetch("/api/admin-upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password,
+            fileName: file.name,
+            fileBase64: reader.result,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          updateValue(path, data.path);
+          alert("Imagem enviada com sucesso. Clique em Salvar Alterações.");
+        } else {
+          alert(data.message || "Erro ao enviar imagem");
+        }
+      } catch {
+        alert("Erro ao enviar imagem");
+      } finally {
+        setUploadingPath(null);
+      }
+    };
+
+    reader.readAsDataURL(file);
+  }
+
   function renderField(label: string, value: any, path: string[]) {
     if (Array.isArray(value)) {
       return (
@@ -205,6 +244,9 @@ export default function Admin() {
 
     if (typeof value === "string") {
       const isLong = value.length > 80;
+      const imageField = isImagePath(label);
+      const pathKey = path.join(".");
+      const isUploading = uploadingPath === pathKey;
 
       return (
         <div className="mb-4">
@@ -212,10 +254,32 @@ export default function Admin() {
             {label}
           </label>
 
-          {isImagePath(label) && (
+          {imageField && (
             <p className="text-xs text-slate-500 mb-2">
               Para imagens, use caminho como <strong>/gallery-1.png</strong> ou
-              URL completa.
+              URL completa. Também pode enviar uma imagem abaixo.
+            </p>
+          )}
+
+          {imageField && (
+            <input
+              type="file"
+              accept="image/*"
+              disabled={isUploading}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+
+                if (file) {
+                  uploadImage(path, file);
+                }
+              }}
+              className="w-full border rounded-lg p-3 mb-3 bg-white"
+            />
+          )}
+
+          {isUploading && (
+            <p className="text-sm text-primary font-bold mb-3">
+              Enviando imagem...
             </p>
           )}
 
@@ -233,7 +297,7 @@ export default function Admin() {
             />
           )}
 
-          {isImagePath(label) && value && (
+          {imageField && value && (
             <img
               src={value}
               alt=""
