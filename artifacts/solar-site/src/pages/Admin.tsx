@@ -1,26 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+type AnyObject = Record<string, any>;
 
 export default function Admin() {
   const [authorized, setAuthorized] = useState(false);
   const [password, setPassword] = useState("");
-  const [content, setContent] = useState<any>(null);
+  const [content, setContent] = useState<AnyObject | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    fetch("/site-content.json")
-      .then((r) => r.json())
-      .then(setContent);
+    fetch("/site-content.json?v=" + Date.now())
+      .then((res) => res.json())
+      .then(setContent)
+      .catch(() => alert("Erro ao carregar conteúdo"));
   }, []);
 
   async function login() {
     const response = await fetch("/api/admin-content", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "login",
-        password,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "login", password }),
     });
 
     const data = await response.json();
@@ -33,164 +32,177 @@ export default function Admin() {
   }
 
   async function save() {
+    setSaving(true);
+
     const response = await fetch("/api/admin-content", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        action: "save",
-        password,
-        content,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "save", password, content }),
     });
 
     const data = await response.json();
+    setSaving(false);
 
     if (data.success) {
-      alert("Conteúdo atualizado com sucesso");
+      alert("Conteúdo salvo com sucesso. Aguarde o redeploy da Vercel.");
     } else {
-      alert("Erro ao salvar");
+      alert(data.message || "Erro ao salvar");
     }
+  }
+
+  function updateValue(path: string[], value: any) {
+    if (!content) return;
+
+    const updated = structuredClone(content);
+    let current = updated;
+
+    path.slice(0, -1).forEach((key) => {
+      current = current[key];
+    });
+
+    current[path[path.length - 1]] = value;
+    setContent(updated);
+  }
+
+  function renderField(label: string, value: any, path: string[]) {
+    if (Array.isArray(value)) {
+      return (
+        <div className="border rounded-xl p-4 mb-5 bg-slate-50">
+          <h3 className="font-bold text-lg mb-3 capitalize">{label}</h3>
+
+          {value.map((item, index) => (
+            <div key={index} className="border rounded-lg p-4 mb-4 bg-white">
+              <div className="font-semibold mb-3">Item {index + 1}</div>
+              {renderField(`${label} ${index + 1}`, item, [...path, String(index)])}
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (typeof value === "object" && value !== null) {
+      return (
+        <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
+          <h2 className="text-xl font-black mb-5 capitalize">{label}</h2>
+
+          {Object.entries(value).map(([key, val]) => (
+            <div key={key}>{renderField(key, val, [...path, key])}</div>
+          ))}
+        </div>
+      );
+    }
+
+    if (typeof value === "string") {
+      const isLong = value.length > 80;
+
+      return (
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2 capitalize">
+            {label}
+          </label>
+
+          {isLong ? (
+            <textarea
+              value={value}
+              onChange={(e) => updateValue(path, e.target.value)}
+              className="w-full border rounded-lg p-3 min-h-[120px]"
+            />
+          ) : (
+            <input
+              value={value}
+              onChange={(e) => updateValue(path, e.target.value)}
+              className="w-full border rounded-lg p-3"
+            />
+          )}
+        </div>
+      );
+    }
+
+    if (typeof value === "number") {
+      return (
+        <div className="mb-4">
+          <label className="block text-sm font-bold mb-2 capitalize">
+            {label}
+          </label>
+
+          <input
+            type="number"
+            value={value}
+            onChange={(e) => updateValue(path, Number(e.target.value))}
+            className="w-full border rounded-lg p-3"
+          />
+        </div>
+      );
+    }
+
+    return null;
   }
 
   if (!authorized) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-950">
-        <div className="bg-white p-8 rounded-xl w-full max-w-md">
-          <h1 className="text-2xl font-bold mb-4">
-            Painel Administrativo
-          </h1>
+      <main className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
+        <div className="bg-white rounded-2xl p-8 w-full max-w-md">
+          <h1 className="text-3xl font-black mb-6">Admin WM Soluções</h1>
 
           <input
             type="password"
-            placeholder="Senha"
+            placeholder="Digite a senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="border p-3 rounded w-full mb-4"
+            className="w-full border rounded-lg p-3 mb-4"
           />
 
           <button
             onClick={login}
-            className="bg-orange-500 text-white w-full py-3 rounded"
+            className="w-full bg-primary text-white font-bold py-3 rounded-lg"
           >
             Entrar
           </button>
         </div>
-      </div>
+      </main>
     );
   }
 
-  if (!content) return null;
+  if (!content) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        Carregando...
+      </main>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-slate-100 p-8">
-      <h1 className="text-3xl font-bold mb-8">
-        Admin WM Soluções
-      </h1>
+    <main className="min-h-screen bg-slate-100 p-4 md:p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-3xl font-black">Admin WM Soluções</h1>
+            <p className="text-slate-600">
+              Edite todos os textos do site abaixo.
+            </p>
+          </div>
 
-      <div className="bg-white rounded-xl p-6 mb-6">
-        <h2 className="font-bold text-xl mb-4">
-          Hero
-        </h2>
+          <button
+            onClick={save}
+            disabled={saving}
+            className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-4 rounded-xl disabled:opacity-60"
+          >
+            {saving ? "Salvando..." : "Salvar Alterações"}
+          </button>
+        </div>
 
-        <input
-          className="border p-3 w-full mb-3"
-          value={content.hero.titleLine1}
-          onChange={(e) =>
-            setContent({
-              ...content,
-              hero: {
-                ...content.hero,
-                titleLine1: e.target.value,
-              },
-            })
-          }
-        />
+        {Object.entries(content).map(([key, value]) => (
+          <div key={key}>{renderField(key, value, [key])}</div>
+        ))}
 
-        <input
-          className="border p-3 w-full mb-3"
-          value={content.hero.titleLine2}
-          onChange={(e) =>
-            setContent({
-              ...content,
-              hero: {
-                ...content.hero,
-                titleLine2: e.target.value,
-              },
-            })
-          }
-        />
-
-        <textarea
-          className="border p-3 w-full h-40"
-          value={content.hero.description}
-          onChange={(e) =>
-            setContent({
-              ...content,
-              hero: {
-                ...content.hero,
-                description: e.target.value,
-              },
-            })
-          }
-        />
+        <button
+          onClick={save}
+          disabled={saving}
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-4 rounded-xl disabled:opacity-60 mt-6"
+        >
+          {saving ? "Salvando..." : "Salvar Alterações"}
+        </button>
       </div>
-
-      <div className="bg-white rounded-xl p-6 mb-6">
-        <h2 className="font-bold text-xl mb-4">
-          Contato
-        </h2>
-
-        <input
-          className="border p-3 w-full mb-3"
-          value={content.contact.phone}
-          onChange={(e) =>
-            setContent({
-              ...content,
-              contact: {
-                ...content.contact,
-                phone: e.target.value,
-              },
-            })
-          }
-        />
-
-        <input
-          className="border p-3 w-full mb-3"
-          value={content.contact.email}
-          onChange={(e) =>
-            setContent({
-              ...content,
-              contact: {
-                ...content.contact,
-                email: e.target.value,
-              },
-            })
-          }
-        />
-
-        <input
-          className="border p-3 w-full"
-          value={content.contact.instagram}
-          onChange={(e) =>
-            setContent({
-              ...content,
-              contact: {
-                ...content.contact,
-                instagram: e.target.value,
-              },
-            })
-          }
-        />
-      </div>
-
-      <button
-        onClick={save}
-        className="bg-green-600 text-white px-8 py-4 rounded-lg font-bold"
-      >
-        Salvar Alterações
-      </button>
-    </div>
+    </main>
   );
 }
