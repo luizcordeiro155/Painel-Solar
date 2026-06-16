@@ -25,22 +25,10 @@
     "secondaryButton": "Falar com Especialista"
   },
   "numbers": [
-    {
-      "label": "Clientes Atendidos",
-      "value": "500+"
-    },
-    {
-      "label": "Sistemas Instalados",
-      "value": "620+"
-    },
-    {
-      "label": "Anos de Experiência",
-      "value": "10+"
-    },
-    {
-      "label": "Cidades Atendidas",
-      "value": "15+"
-    }
+    { "label": "Clientes Atendidos", "value": "500+" },
+    { "label": "Sistemas Instalados", "value": "620+" },
+    { "label": "Anos de Experiência", "value": "10+" },
+    { "label": "Cidades Atendidas", "value": "15+" }
   ],
   "footer": {
     "description": "Especialistas em aquecedores solares para banho e piscina. Equipamentos de alta qualidade, instalação profissional e atendimento humanizado para residências, comércios e condomínios.",
