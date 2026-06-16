@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Flame } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -47,15 +47,17 @@ export default function Navbar() {
           {/* Logo */}
           <a
             href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            className="flex items-center gap-2 flex-shrink-0 group"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="flex items-center flex-shrink-0 group"
           >
-            <div className="bg-primary p-1.5 rounded-lg text-white group-hover:scale-105 transition-transform">
-              <Flame size={22} strokeWidth={2.5} />
-            </div>
-            <span className={`text-xl font-black tracking-tight ${isScrolled ? "text-slate-900" : "text-white"}`}>
-              WM <span className="text-primary">Soluções</span>
-            </span>
+            <img
+              src="/logo.png"
+              alt="WM Soluções"
+              className="h-11 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform"
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -64,7 +66,10 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(link.href);
+                }}
                 className={`text-sm font-medium whitespace-nowrap transition-colors hover:text-primary ${
                   isScrolled ? "text-slate-700" : "text-white/90 hover:text-white"
                 }`}
@@ -72,6 +77,7 @@ export default function Navbar() {
                 {link.name}
               </a>
             ))}
+
             <Button
               onClick={handleWhatsApp}
               className="bg-primary text-white hover:bg-primary/90 font-bold whitespace-nowrap px-5"
@@ -109,12 +115,16 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollTo(link.href); }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollTo(link.href);
+                }}
                 className="text-base font-medium text-slate-800 py-3 border-b border-slate-100 last:border-0 hover:text-primary transition-colors"
               >
                 {link.name}
               </a>
             ))}
+
             <Button
               onClick={handleWhatsApp}
               className="w-full mt-3 bg-primary text-white font-bold"
