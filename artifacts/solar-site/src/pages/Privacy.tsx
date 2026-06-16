@@ -8,7 +8,7 @@ export default function Privacy() {
 
         <div className="space-y-6 text-slate-300 leading-relaxed">
           <p>
-            Esta Política de Privacidade explica como a WM Soluções — Aquecedores Solares trata as informações fornecidas
+            Esta Política de Privacidade explica como a WM Soluções Aquecedores Solares trata as informações fornecidas
             por usuários que acessam o site ou entram em contato conosco.
           </p>
 
