@@ -1,0 +1,49 @@
+{
+  "brand": {
+    "name": "WM Soluções",
+    "logo": "/logo.png",
+    "favicon": "/favicon.png",
+    "ogImage": "/og-image.png"
+  },
+  "contact": {
+    "phone": "(31) 99754-4806",
+    "phoneRaw": "5531997544806",
+    "email": "wmsolucoessolar@gmail.com",
+    "city": "Belo Horizonte — MG",
+    "region": "e Região Metropolitana",
+    "instagram": "https://www.instagram.com/wm__solucoes/",
+    "whatsappMessage": "Olá! Gostaria de um orçamento de aquecedor solar!"
+  },
+  "hero": {
+    "background": "/hero-bg.png",
+    "socialProof": "+500 clientes com água quente todos os dias",
+    "titleLine1": "Água Quente o Ano",
+    "titleLine2": "Todo com Energia Solar",
+    "description": "A WM Soluções instala aquecedores solares de alta qualidade para banho e piscina em residências, comércios e condomínios. Tecnologia avançada, instalação profissional e atendimento humanizado.",
+    "highlight": "Orçamento gratuito e sem compromisso. Resposta em minutos.",
+    "primaryButton": "Quero Meu Orçamento Grátis",
+    "secondaryButton": "Falar com Especialista"
+  },
+  "numbers": [
+    {
+      "label": "Clientes Atendidos",
+      "value": "500+"
+    },
+    {
+      "label": "Sistemas Instalados",
+      "value": "620+"
+    },
+    {
+      "label": "Anos de Experiência",
+      "value": "10+"
+    },
+    {
+      "label": "Cidades Atendidas",
+      "value": "15+"
+    }
+  ],
+  "footer": {
+    "description": "Especialistas em aquecedores solares para banho e piscina. Equipamentos de alta qualidade, instalação profissional e atendimento humanizado para residências, comércios e condomínios.",
+    "copyright": "WM Soluções — Aquecedores Solares."
+  }
+}
