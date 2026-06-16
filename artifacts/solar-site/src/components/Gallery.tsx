@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ChevronLeft, ChevronRight } from "lucide-react";
+import { useSiteContent } from "@/lib/siteContent";
 
-const projects = [
+const fallbackProjects = [
   {
     src: "/gallery-1.png",
     alt: "Instalação de aquecedor solar residencial com tubos a vácuo",
@@ -36,6 +37,9 @@ const projects = [
 ];
 
 export default function Gallery() {
+  const content = useSiteContent();
+  const gallery = content?.gallery;
+  const projects = gallery?.projects?.length ? gallery.projects : fallbackProjects;
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   const prev = () =>
@@ -46,7 +50,6 @@ export default function Gallery() {
   return (
     <section id="galeria" className="py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
-        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <motion.span
             initial={{ opacity: 0 }}
@@ -54,7 +57,7 @@ export default function Gallery() {
             viewport={{ once: true }}
             className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-3"
           >
-            Projetos Realizados
+            {gallery?.eyebrow || "Projetos Realizados"}
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -62,7 +65,7 @@ export default function Gallery() {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-black mb-4 text-foreground"
           >
-            Nossos Trabalhos
+            {gallery?.title || "Nossos Trabalhos"}
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -71,15 +74,14 @@ export default function Gallery() {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground"
           >
-            Cada instalação é única. Veja alguns dos projetos que entregamos com qualidade e profissionalismo.
+            {gallery?.description || "Cada instalação é única. Veja alguns dos projetos que entregamos com qualidade e profissionalismo."}
           </motion.p>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project, index) => (
+          {projects.map((project: any, index: number) => (
             <motion.div
-              key={index}
+              key={project.src || index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -90,16 +92,13 @@ export default function Gallery() {
             >
               <img
                 src={project.src}
-                alt={project.alt}
+                alt={project.alt || project.label || "Projeto realizado"}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              {/* Label */}
               <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <p className="text-white font-bold text-sm md:text-base">{project.label}</p>
               </div>
-              {/* Zoom icon */}
               <div className="absolute top-4 right-4 bg-white/90 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-75 group-hover:scale-100">
                 <ZoomIn size={18} className="text-slate-800" />
               </div>
@@ -108,9 +107,8 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox */}
       <AnimatePresence>
-        {lightbox !== null && (
+        {lightbox !== null && projects[lightbox] && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -118,25 +116,22 @@ export default function Gallery() {
             className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4"
             onClick={() => setLightbox(null)}
           >
-            {/* Close */}
             <button
               className="absolute top-5 right-5 bg-white/10 hover:bg-white/20 text-white rounded-full p-2.5 transition-colors z-10"
               onClick={() => setLightbox(null)}
-              aria-label="Fechar"
+              aria-label={gallery?.closeLabel || "Fechar"}
             >
               <X size={24} />
             </button>
 
-            {/* Prev */}
             <button
               className="absolute left-3 md:left-6 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors z-10"
               onClick={(e) => { e.stopPropagation(); prev(); }}
-              aria-label="Anterior"
+              aria-label={gallery?.prevLabel || "Anterior"}
             >
               <ChevronLeft size={28} />
             </button>
 
-            {/* Image */}
             <motion.div
               key={lightbox}
               initial={{ opacity: 0, scale: 0.92 }}
@@ -148,7 +143,7 @@ export default function Gallery() {
             >
               <img
                 src={projects[lightbox].src}
-                alt={projects[lightbox].alt}
+                alt={projects[lightbox].alt || projects[lightbox].label || "Projeto realizado"}
                 className="w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
               />
               <p className="text-center text-white/80 mt-4 text-sm font-medium">
@@ -156,25 +151,23 @@ export default function Gallery() {
               </p>
             </motion.div>
 
-            {/* Next */}
             <button
               className="absolute right-3 md:right-6 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-colors z-10"
               onClick={(e) => { e.stopPropagation(); next(); }}
-              aria-label="Próximo"
+              aria-label={gallery?.nextLabel || "Próximo"}
             >
               <ChevronRight size={28} />
             </button>
 
-            {/* Dots */}
             <div className="absolute bottom-6 flex gap-2 justify-center">
-              {projects.map((_, i) => (
+              {projects.map((_: any, i: number) => (
                 <button
                   key={i}
                   onClick={(e) => { e.stopPropagation(); setLightbox(i); }}
                   className={`w-2 h-2 rounded-full transition-all ${
                     i === lightbox ? "bg-primary w-5" : "bg-white/40"
                   }`}
-                  aria-label={`Imagem ${i + 1}`}
+                  aria-label={`${gallery?.imageLabelPrefix || "Imagem"} ${i + 1}`}
                 />
               ))}
             </div>
