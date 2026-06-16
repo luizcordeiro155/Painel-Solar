@@ -31,7 +31,7 @@ export default function Admin() {
   const [uploadingPath, setUploadingPath] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/site-content.json?v=" + Date.now())
+    fetch("/site-content.json?v=" + Date.now(), { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         setContent(data);
@@ -77,7 +77,7 @@ export default function Admin() {
     setSaving(false);
 
     if (data.success) {
-      alert("Conteúdo salvo. Aguarde o redeploy da Vercel.");
+      alert("Conteúdo salvo com sucesso. Assim que o deploy da Vercel finalizar, o site público será atualizado com os textos e botões do painel.");
     } else {
       alert(data.message || "Erro ao salvar");
     }
