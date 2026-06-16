@@ -262,19 +262,25 @@ export default function Admin() {
           )}
 
           {imageField && (
-            <input
-              type="file"
-              accept="image/*"
-              disabled={isUploading}
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-
-                if (file) {
-                  uploadImage(path, file);
-                }
-              }}
-              className="w-full border rounded-lg p-3 mb-3 bg-white"
-            />
+            <label className="inline-flex items-center justify-center w-full md:w-auto cursor-pointer bg-primary hover:bg-primary/90 text-white font-bold px-5 py-3 rounded-xl mb-3 transition-colors">
+              {isUploading ? "Enviando imagem..." : "Upload de Imagem"}
+          
+              <input
+                type="file"
+                accept="image/*"
+                disabled={isUploading}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+          
+                  if (file) {
+                    uploadImage(path, file);
+                  }
+          
+                  e.currentTarget.value = "";
+                }}
+                className="hidden"
+              />
+            </label>
           )}
 
           {isUploading && (
