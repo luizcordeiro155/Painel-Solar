@@ -5,7 +5,7 @@ export default function HowItWorks() {
   const steps = [
     {
       title: "Fale Conosco",
-      description: "Entre em contato pelo WhatsApp. Nosso atendimento é rápido e humanizado — sem burocracia e sem enrolação.",
+      description: "Entre em contato pelo WhatsApp. Nosso atendimento é rápido e humanizado sem burocracia e sem enrolação.",
       icon: <MessageCircle className="w-8 h-8 text-white" />,
     },
     {
