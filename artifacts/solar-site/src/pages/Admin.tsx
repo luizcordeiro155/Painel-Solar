@@ -2,23 +2,49 @@ import { useEffect, useState } from "react";
 
 type AnyObject = Record<string, any>;
 
+const labels: Record<string, string> = {
+  brand: "Marca",
+  seo: "SEO",
+  contact: "Contato",
+  navbar: "Menu",
+  hero: "Topo",
+  numbers: "Contadores",
+  services: "Soluções",
+  offer: "Oferta",
+  benefits: "Benefícios",
+  about: "Quem Somos",
+  howItWorks: "Como Funciona",
+  gallery: "Nossos Trabalhos",
+  testimonials: "Depoimentos",
+  faq: "FAQ",
+  contactSection: "Contato CTA",
+  footer: "Rodapé",
+  legal: "Termos e Privacidade",
+};
+
 export default function Admin() {
   const [authorized, setAuthorized] = useState(false);
   const [password, setPassword] = useState("");
   const [content, setContent] = useState<AnyObject | null>(null);
   const [saving, setSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState("hero");
 
   useEffect(() => {
     fetch("/site-content.json?v=" + Date.now())
       .then((res) => res.json())
-      .then(setContent)
+      .then((data) => {
+        setContent(data);
+        setActiveTab(Object.keys(data)[0] || "hero");
+      })
       .catch(() => alert("Erro ao carregar conteúdo"));
   }, []);
 
   async function login() {
     const response = await fetch("/api/admin-content", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ action: "login", password }),
     });
 
@@ -36,15 +62,21 @@ export default function Admin() {
 
     const response = await fetch("/api/admin-content", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "save", password, content }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "save",
+        password,
+        content,
+      }),
     });
 
     const data = await response.json();
     setSaving(false);
 
     if (data.success) {
-      alert("Conteúdo salvo com sucesso. Aguarde o redeploy da Vercel.");
+      alert("Conteúdo salvo. Aguarde o redeploy da Vercel.");
     } else {
       alert(data.message || "Erro ao salvar");
     }
@@ -57,23 +89,100 @@ export default function Admin() {
     let current = updated;
 
     path.slice(0, -1).forEach((key) => {
-      current = current[key];
+      current = Array.isArray(current) ? current[Number(key)] : current[key];
     });
 
-    current[path[path.length - 1]] = value;
+    const last = path[path.length - 1];
+
+    if (Array.isArray(current)) {
+      current[Number(last)] = value;
+    } else {
+      current[last] = value;
+    }
+
     setContent(updated);
+  }
+
+  function addItem(path: string[], template: any) {
+    if (!content) return;
+
+    const updated = structuredClone(content);
+    let current = updated;
+
+    path.forEach((key) => {
+      current = Array.isArray(current) ? current[Number(key)] : current[key];
+    });
+
+    if (Array.isArray(current)) {
+      current.push(template);
+    }
+
+    setContent(updated);
+  }
+
+  function removeItem(path: string[], index: number) {
+    if (!content) return;
+
+    const updated = structuredClone(content);
+    let current = updated;
+
+    path.forEach((key) => {
+      current = Array.isArray(current) ? current[Number(key)] : current[key];
+    });
+
+    if (Array.isArray(current)) {
+      current.splice(index, 1);
+    }
+
+    setContent(updated);
+  }
+
+  function cloneTemplate(value: any) {
+    if (Array.isArray(value) && value.length > 0) {
+      return structuredClone(value[0]);
+    }
+
+    return "";
+  }
+
+  function isImagePath(label: string) {
+    return ["src", "image", "background", "logo", "favicon", "ogImage"].includes(
+      label
+    );
   }
 
   function renderField(label: string, value: any, path: string[]) {
     if (Array.isArray(value)) {
       return (
         <div className="border rounded-xl p-4 mb-5 bg-slate-50">
-          <h3 className="font-bold text-lg mb-3 capitalize">{label}</h3>
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <h3 className="font-black text-lg capitalize">{label}</h3>
+
+            <button
+              onClick={() => addItem(path, cloneTemplate(value))}
+              className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-bold"
+            >
+              Adicionar
+            </button>
+          </div>
 
           {value.map((item, index) => (
             <div key={index} className="border rounded-lg p-4 mb-4 bg-white">
-              <div className="font-semibold mb-3">Item {index + 1}</div>
-              {renderField(`${label} ${index + 1}`, item, [...path, String(index)])}
+              <div className="flex items-center justify-between mb-3">
+                <div className="font-bold">Item {index + 1}</div>
+
+                <button
+                  onClick={() => removeItem(path, index)}
+                  className="bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold"
+                >
+                  Remover
+                </button>
+              </div>
+
+              {renderField(`${label} ${index + 1}`, item, [
+                ...path,
+                String(index),
+              ])}
             </div>
           ))}
         </div>
@@ -82,8 +191,10 @@ export default function Admin() {
 
     if (typeof value === "object" && value !== null) {
       return (
-        <div className="bg-white rounded-xl p-6 mb-6 shadow-sm">
-          <h2 className="text-xl font-black mb-5 capitalize">{label}</h2>
+        <div className="bg-white rounded-xl p-6 mb-6 shadow-sm border border-slate-200">
+          <h2 className="text-xl font-black mb-5 capitalize">
+            {labels[label] || label}
+          </h2>
 
           {Object.entries(value).map(([key, val]) => (
             <div key={key}>{renderField(key, val, [...path, key])}</div>
@@ -101,6 +212,13 @@ export default function Admin() {
             {label}
           </label>
 
+          {isImagePath(label) && (
+            <p className="text-xs text-slate-500 mb-2">
+              Para imagens, use caminho como <strong>/gallery-1.png</strong> ou
+              URL completa.
+            </p>
+          )}
+
           {isLong ? (
             <textarea
               value={value}
@@ -112,6 +230,14 @@ export default function Admin() {
               value={value}
               onChange={(e) => updateValue(path, e.target.value)}
               className="w-full border rounded-lg p-3"
+            />
+          )}
+
+          {isImagePath(label) && value && (
+            <img
+              src={value}
+              alt=""
+              className="mt-3 max-h-28 rounded-lg border bg-slate-100 object-contain"
             />
           )}
         </div>
@@ -173,12 +299,12 @@ export default function Admin() {
 
   return (
     <main className="min-h-screen bg-slate-100 p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-black">Admin WM Soluções</h1>
             <p className="text-slate-600">
-              Edite todos os textos do site abaixo.
+              Edite textos e caminhos das imagens do site.
             </p>
           </div>
 
@@ -191,9 +317,27 @@ export default function Admin() {
           </button>
         </div>
 
-        {Object.entries(content).map(([key, value]) => (
-          <div key={key}>{renderField(key, value, [key])}</div>
-        ))}
+        <div className="grid lg:grid-cols-[260px_1fr] gap-6">
+          <aside className="bg-white border rounded-2xl p-3 h-fit sticky top-4">
+            {Object.keys(content).map((key) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`w-full text-left px-4 py-3 rounded-xl font-bold text-sm mb-1 ${
+                  activeTab === key
+                    ? "bg-primary text-white"
+                    : "hover:bg-slate-100 text-slate-700"
+                }`}
+              >
+                {labels[key] || key}
+              </button>
+            ))}
+          </aside>
+
+          <section>
+            {renderField(activeTab, content[activeTab], [activeTab])}
+          </section>
+        </div>
 
         <button
           onClick={save}
