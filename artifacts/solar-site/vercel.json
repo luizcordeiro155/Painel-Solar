@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd artifacts/solar-site && pnpm run build:vercel",
-  "outputDirectory": "artifacts/solar-site/dist",
+  "buildCommand": "pnpm run build:vercel",
+  "outputDirectory": "dist",
   "framework": null,
   "rewrites": [
     {
