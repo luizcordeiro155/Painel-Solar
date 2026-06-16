@@ -8,7 +8,7 @@ export default function Terms() {
 
         <div className="space-y-6 text-slate-300 leading-relaxed">
           <p>
-            Ao acessar e utilizar o site da WM Soluções — Aquecedores Solares, você concorda com estes Termos de Uso.
+            Ao acessar e utilizar o site da WM Soluções Aquecedores Solares, você concorda com estes Termos de Uso.
           </p>
 
           <h2 className="text-2xl font-bold text-white">1. Objetivo do site</h2>
