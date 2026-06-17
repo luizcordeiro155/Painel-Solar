@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { HelpCircle, Sparkles } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -40,59 +41,70 @@ export default function FAQ() {
       ];
 
   return (
-    <section id="faq" className="py-24 bg-background">
-      <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-        <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-3"
-          >
-            {faqContent?.eyebrow || "Tire suas dúvidas"}
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-black mb-4"
-          >
-            {faqContent?.title || "Perguntas Frequentes"}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground"
-          >
-            {faqContent?.description || "Ainda tem dúvidas? Fale diretamente com um especialista pelo WhatsApp."}
-          </motion.p>
-        </div>
+    <section id="faq" className="relative overflow-hidden bg-background py-28">
+      <div className="solar-glow right-[-12rem] top-12 opacity-45" />
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div className="lg:sticky lg:top-32">
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="section-eyebrow"
+            >
+              <Sparkles size={14} />
+              {faqContent?.eyebrow || "Tire suas dúvidas"}
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.08 }}
+              className="mt-5 text-4xl font-black tracking-[-0.045em] text-foreground md:text-6xl"
+            >
+              {faqContent?.title || "Perguntas Frequentes"}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.16 }}
+              className="mt-5 max-w-md text-lg leading-relaxed text-muted-foreground"
+            >
+              {faqContent?.description || "Ainda tem dúvidas? Fale diretamente com um especialista pelo WhatsApp."}
+            </motion.p>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-        >
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq: any, index: number) => (
-              <AccordionItem
-                key={faq.question || index}
-                value={`item-${index}`}
-                className="border-b border-border py-2"
-              >
-                <AccordionTrigger className="text-left font-semibold text-base md:text-lg hover:text-primary transition-colors">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ delay: 0.18, duration: 0.62 }}
+            className="premium-card p-3 md:p-5"
+          >
+            <Accordion type="single" collapsible className="relative z-10 w-full space-y-3">
+              {faqs.map((faq: any, index: number) => (
+                <AccordionItem
+                  key={faq.question || index}
+                  value={`item-${index}`}
+                  className="overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white px-5 shadow-sm transition-all hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5"
+                >
+                  <AccordionTrigger className="gap-4 py-5 text-left text-base font-black text-slate-950 transition-colors hover:text-primary hover:no-underline md:text-lg">
+                    <span className="flex min-w-0 items-center gap-3">
+                      <span className="hidden h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary md:flex">
+                        <HelpCircle size={18} />
+                      </span>
+                      {faq.question}
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-6 pl-0 text-sm leading-relaxed text-slate-600 md:pl-12 md:text-base">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
