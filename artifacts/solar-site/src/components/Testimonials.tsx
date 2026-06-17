@@ -30,8 +30,9 @@ export default function Testimonials() {
       ];
 
   return (
-    <section className="py-24 bg-slate-50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="relative overflow-hidden py-24 bg-gradient-to-b from-background via-amber-50/70 to-background md:from-[#d8d2c8] md:via-[#cec7bd] md:to-[#d9d2c7] dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
+      <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_15%_20%,rgba(245,158,11,0.09),transparent_28rem),radial-gradient(circle_at_85%_10%,rgba(15,23,42,0.06),transparent_28rem)] md:block" />
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.span
             initial={{ opacity: 0 }}
@@ -54,7 +55,7 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground"
+            className="text-lg text-muted-foreground md:text-slate-700"
           >
             {testimonialsContent?.description || "A satisfação dos nossos clientes é o nosso maior resultado."}
           </motion.p>
@@ -69,7 +70,7 @@ export default function Testimonials() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full border-none shadow-lg bg-card">
+              <Card className="h-full border border-primary/10 bg-white/88 shadow-xl shadow-slate-900/12 backdrop-blur-xl transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-900/16">
                 <CardContent className="p-8 flex flex-col h-full">
                   <Quote className="text-primary/30 mb-4" size={36} />
                   <div className="flex text-yellow-400 mb-4">
