@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Home, Building2, Users, Wrench, ClipboardCheck, Headphones, Waves, Zap, ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Home, Building2, Users, Wrench, ClipboardCheck, Headphones, Waves, Zap, ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSiteContent, whatsappUrl } from "@/lib/siteContent";
 
@@ -65,31 +64,34 @@ export default function Services() {
     : ["Residencial", "Comercial", "Condomínios"];
 
   return (
-    <section id="servicos" className="py-24 bg-slate-50 dark:bg-slate-900/50">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-6">
+    <section id="servicos" className="relative overflow-hidden py-28 bg-gradient-to-b from-background via-white to-amber-50/50 dark:via-slate-950">
+      <div className="solar-glow left-[-10rem] top-24 opacity-60" />
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
+        <div className="mx-auto mb-10 max-w-4xl text-center">
           <motion.span
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="inline-block text-sm font-semibold text-primary uppercase tracking-wider mb-3"
+            className="section-eyebrow"
           >
+            <Sparkles size={14} />
             {servicesContent?.eyebrow || "Nossas Soluções"}
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-black mb-4 text-foreground"
+            transition={{ delay: 0.08 }}
+            className="mt-5 text-4xl font-black tracking-[-0.04em] text-foreground md:text-6xl"
           >
             {servicesContent?.title || "Sistemas e Serviços Completos"}
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground"
+            transition={{ delay: 0.16 }}
+            className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl"
           >
             {servicesContent?.description || "Atendemos todos os perfis: desde uma residência familiar até grandes condomínios e estabelecimentos comerciais."}
           </motion.p>
@@ -99,89 +101,100 @@ export default function Services() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex justify-center gap-3 flex-wrap mb-14"
+          className="mb-16 flex flex-wrap justify-center gap-3"
         >
           {segments.map((label: string, index: number) => {
             const Icon = segmentIcons[index] || Home;
 
             return (
-              <div key={label} className="flex items-center gap-2 bg-primary/10 text-primary border border-primary/20 px-4 py-2 rounded-full text-sm font-semibold">
-                <Icon size={22} />
+              <div key={label} className="flex items-center gap-2 rounded-full border border-primary/20 bg-white/75 px-5 py-3 text-sm font-black text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-primary/40 hover:text-primary">
+                <Icon size={20} className="text-primary" />
                 {label}
               </div>
             );
           })}
         </motion.div>
 
-        <h3 className="text-xl font-bold text-foreground mb-6 text-center">
-          {servicesContent?.systemsTitle || "Tipos de Sistema"}
-        </h3>
-        <div className="grid md:grid-cols-3 gap-6 mb-14">
+        <div className="mb-7 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-primary">Escolha sua tecnologia</p>
+            <h3 className="mt-2 text-2xl font-black tracking-tight text-foreground md:text-3xl">
+              {servicesContent?.systemsTitle || "Tipos de Sistema"}
+            </h3>
+          </div>
+        </div>
+
+        <div className="mb-18 grid gap-6 md:grid-cols-3">
           {systems.map((item: any, index: number) => {
             const Icon = systemIcons[index] || Zap;
+            const featured = index === 1;
 
             return (
               <motion.div
                 key={item.title || index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 34 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.58, delay: index * 0.09 }}
+                className={`premium-card group h-full p-6 ${featured ? "bg-slate-950 text-white" : "bg-white/85 text-slate-950"}`}
               >
-                <Card className="h-full border-2 border-border/50 bg-card hover:border-primary/40 hover:shadow-xl transition-all duration-300 group">
-                  <CardContent className="p-6 flex flex-col h-full">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="bg-primary/10 p-3 rounded-xl text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                        <Icon size={28} />
-                      </div>
-                      <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                        {item.tag}
-                      </span>
+                <div className="relative z-10 flex h-full flex-col">
+                  <div className="mb-7 flex items-start justify-between gap-4">
+                    <div className={`flex h-14 w-14 items-center justify-center rounded-2xl shadow-lg transition-all group-hover:scale-110 ${featured ? "bg-primary text-white shadow-primary/25" : "bg-primary/10 text-primary"}`}>
+                      <Icon size={29} />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-foreground">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed flex-1 mb-4">{item.description}</p>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-between group/btn hover:bg-primary hover:text-white"
-                      onClick={handleWhatsApp}
-                    >
-                      {item.button || "Saiba mais"}
-                      <ArrowRight className="group-hover/btn:translate-x-1 transition-transform" size={16} />
-                    </Button>
-                  </CardContent>
-                </Card>
+                    <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-[0.16em] ${featured ? "bg-white/10 text-primary ring-1 ring-white/10" : "bg-primary/10 text-primary ring-1 ring-primary/15"}`}>
+                      {item.tag}
+                    </span>
+                  </div>
+
+                  <h3 className={`mb-4 text-2xl font-black tracking-tight ${featured ? "text-white" : "text-slate-950"}`}>{item.title}</h3>
+                  <p className={`mb-7 flex-1 text-sm leading-relaxed md:text-base ${featured ? "text-white/70" : "text-slate-600"}`}>{item.description}</p>
+
+                  <Button
+                    variant={featured ? "default" : "ghost"}
+                    className={`h-12 w-full justify-between rounded-2xl font-black transition-all group-hover:-translate-y-1 ${featured ? "bg-primary text-white hover:bg-primary/95" : "bg-slate-950 text-white hover:bg-primary"}`}
+                    onClick={handleWhatsApp}
+                  >
+                    {item.button || "Saiba mais"}
+                    <ArrowRight className="transition-transform group-hover:translate-x-1" size={18} />
+                  </Button>
+                </div>
               </motion.div>
             );
           })}
         </div>
 
-        <h3 className="text-xl font-bold text-foreground mb-6 text-center">
-          {servicesContent?.specializedTitle || "Serviços Especializados"}
-        </h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          {specialized.map((item: any, index: number) => {
-            const Icon = serviceIcons[index] || Wrench;
+        <div className="mt-16 rounded-[2rem] border border-slate-200/70 bg-white/70 p-5 shadow-2xl shadow-slate-900/5 backdrop-blur-xl md:p-7">
+          <div className="mb-7 text-center">
+            <p className="text-xs font-black uppercase tracking-[0.24em] text-secondary">Execução completa</p>
+            <h3 className="mt-2 text-2xl font-black tracking-tight text-foreground md:text-3xl">
+              {servicesContent?.specializedTitle || "Serviços Especializados"}
+            </h3>
+          </div>
 
-            return (
-              <motion.div
-                key={item.title || index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Card className="h-full border border-border/50 bg-card hover:shadow-md transition-all duration-300 group">
-                  <CardContent className="p-6">
-                    <div className="bg-secondary/10 p-3 rounded-xl text-secondary w-fit mb-4 group-hover:bg-secondary group-hover:text-white transition-colors">
-                      <Icon size={28} />
-                    </div>
-                    <h3 className="text-lg font-bold mb-2 text-foreground">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
+          <div className="grid gap-5 md:grid-cols-3">
+            {specialized.map((item: any, index: number) => {
+              const Icon = serviceIcons[index] || Wrench;
+
+              return (
+                <motion.div
+                  key={item.title || index}
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.52, delay: index * 0.08 }}
+                  className="group rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary/10"
+                >
+                  <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-all group-hover:bg-secondary group-hover:text-white">
+                    <Icon size={27} />
+                  </div>
+                  <h3 className="mb-3 text-xl font-black tracking-tight text-slate-950">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-slate-600">{item.description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
