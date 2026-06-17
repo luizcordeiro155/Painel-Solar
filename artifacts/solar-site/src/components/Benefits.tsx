@@ -38,8 +38,9 @@ export default function Benefits() {
       ];
 
   return (
-    <section id="beneficios" className="py-24 bg-background">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="beneficios" className="relative overflow-hidden py-24 bg-gradient-to-b from-background via-amber-50/70 to-background md:from-[#d9d2c7] md:via-[#cec7bd] md:to-[#d8d2c8]">
+      <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_88%_18%,rgba(245,158,11,0.10),transparent_28rem),radial-gradient(circle_at_12%_70%,rgba(15,23,42,0.05),transparent_26rem)] md:block" />
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.span
             initial={{ opacity: 0 }}
@@ -62,7 +63,7 @@ export default function Benefits() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground"
+            className="text-lg text-muted-foreground md:text-slate-700"
           >
             {benefitsContent?.description || "Mais do que conforto é um investimento inteligente que gera economia, sustentabilidade e valorização."}
           </motion.p>
@@ -80,9 +81,9 @@ export default function Benefits() {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
               >
-                <Card className="h-full border-border/50 bg-card hover:border-primary/50 transition-colors shadow-sm hover:shadow-md">
+                <Card className="h-full border border-primary/10 bg-white/88 shadow-xl shadow-slate-900/10 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-2xl hover:shadow-slate-900/14">
                   <CardHeader>
-                    <div className="mb-4 p-3 bg-primary/10 w-fit rounded-2xl">
+                    <div className="mb-4 p-3 bg-primary/10 w-fit rounded-2xl shadow-sm">
                       <Icon className="w-10 h-10 text-primary" />
                     </div>
                     <CardTitle className="text-xl">{benefit.title}</CardTitle>
