@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSiteContent, whatsappUrl } from "@/lib/siteContent";
 
 const badgeIcons = [Droplets, ShieldCheck, Wrench];
-const previewBuildVersion = "hero-clean-v2";
+const previewBuildVersion = "hero-mobile-title-v3";
 
 export default function Hero() {
   const content = useSiteContent();
@@ -67,12 +67,21 @@ export default function Hero() {
             initial={{ opacity: 0, y: 34 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.78, delay: 0.22 }}
-            className="max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.055em] text-white md:text-7xl lg:text-8xl"
+            className="max-w-4xl text-[3.15rem] font-black leading-[0.94] tracking-[-0.058em] text-white min-[390px]:text-[3.45rem] md:text-7xl lg:text-8xl"
           >
-            {hero?.titleLine1 || "Água Quente o Ano"}
-            <br />
+            <span className="hidden md:inline">
+              {hero?.titleLine1 || "Água Quente o Ano"}
+              <br />
+            </span>
+            <span className="md:hidden">
+              Água Quente o
+              <br />
+              Ano Todo com
+              <br />
+            </span>
             <span className="shine-line inline-block rounded-2xl bg-gradient-to-r from-primary via-amber-200 to-orange-400 bg-clip-text text-transparent">
-              {hero?.titleLine2 || "Todo com Energia Solar"}
+              <span className="hidden md:inline">{hero?.titleLine2 || "Todo com Energia Solar"}</span>
+              <span className="md:hidden">Energia Solar</span>
             </span>
           </motion.h1>
 
