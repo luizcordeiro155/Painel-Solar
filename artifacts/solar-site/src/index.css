@@ -56,12 +56,12 @@
   --app-font-display: 'Outfit', sans-serif;
   --radius: 1rem;
 
-  --background: 42 58% 97%;
+  --background: 38 28% 92%;
   --foreground: 222 47% 10%;
 
   --card: 0 0% 100%;
   --card-foreground: 222 47% 11%;
-  --card-border: 38 92% 50% / 0.14;
+  --card-border: 38 92% 50% / 0.18;
 
   --popover: 0 0% 100%;
   --popover-foreground: 222 47% 11%;
@@ -73,17 +73,17 @@
   --secondary: 163 86% 36%;
   --secondary-foreground: 0 0% 100%;
 
-  --muted: 39 42% 92%;
+  --muted: 37 24% 86%;
   --muted-foreground: 218 16% 42%;
 
-  --accent: 39 90% 92%;
+  --accent: 39 70% 88%;
   --accent-foreground: 222 47% 11%;
 
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;
 
-  --border: 35 36% 86%;
-  --input: 35 36% 86%;
+  --border: 35 25% 78%;
+  --input: 35 25% 78%;
   --ring: 38 96% 52%;
 }
 
@@ -143,9 +143,9 @@
     max-width: 100%;
     position: relative;
     background:
-      radial-gradient(circle at 8% 0%, hsl(var(--primary) / 0.16), transparent 32rem),
-      radial-gradient(circle at 94% 12%, hsl(var(--secondary) / 0.12), transparent 28rem),
-      hsl(var(--background));
+      radial-gradient(circle at 8% 0%, hsl(var(--primary) / 0.12), transparent 32rem),
+      radial-gradient(circle at 94% 12%, hsl(var(--secondary) / 0.08), transparent 28rem),
+      linear-gradient(180deg, hsl(38 30% 94%) 0%, hsl(38 22% 88%) 42%, hsl(38 18% 86%) 100%);
   }
 
   #root {
@@ -186,15 +186,15 @@
 
 @layer components {
   .premium-card {
-    @apply relative overflow-hidden rounded-[2rem] border bg-white/85 shadow-xl shadow-slate-900/5 backdrop-blur-xl transition-all duration-500;
-    border-color: hsl(var(--primary) / 0.16);
+    @apply relative overflow-hidden rounded-[2rem] border bg-white/90 shadow-xl shadow-slate-900/8 backdrop-blur-xl transition-all duration-500;
+    border-color: hsl(var(--primary) / 0.18);
   }
 
   .premium-card::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.55), transparent 36%, hsl(var(--primary) / 0.10));
+    background: linear-gradient(135deg, rgba(255,255,255,0.42), transparent 36%, hsl(var(--primary) / 0.08));
     pointer-events: none;
   }
 
