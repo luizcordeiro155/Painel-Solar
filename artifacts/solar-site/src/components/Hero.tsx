@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSiteContent, whatsappUrl } from "@/lib/siteContent";
 
 const badgeIcons = [Droplets, ShieldCheck, Wrench];
+const previewBuildVersion = "hero-clean-v2";
 
 export default function Hero() {
   const content = useSiteContent();
@@ -22,7 +23,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-[100dvh] flex items-center pt-28 pb-20 overflow-hidden bg-slate-950">
+    <section data-preview-build={previewBuildVersion} className="relative min-h-[100dvh] flex items-center pt-28 pb-20 overflow-hidden bg-slate-950">
       <div className="absolute inset-0 z-0">
         <motion.img
           initial={{ scale: 1.06 }}
