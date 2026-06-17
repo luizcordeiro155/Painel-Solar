@@ -48,10 +48,10 @@ export default function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.55, ease: "easeOut" }}
-        className={`mx-auto max-w-7xl rounded-[1.7rem] border transition-all duration-500 ${
+        className={`mx-auto max-w-7xl rounded-[1.7rem] border border-white/10 bg-slate-950/88 shadow-2xl backdrop-blur-2xl transition-all duration-500 ${
           isScrolled || mobileMenuOpen
-            ? "border-slate-200/70 bg-white/88 shadow-2xl shadow-slate-950/10 backdrop-blur-2xl"
-            : "border-white/10 bg-white/8 shadow-xl shadow-black/5 backdrop-blur-md"
+            ? "shadow-slate-950/30 ring-1 ring-primary/10"
+            : "shadow-black/10"
         }`}
       >
         <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-5">
@@ -63,30 +63,20 @@ export default function Navbar() {
             }}
             className="group flex flex-shrink-0 items-center gap-3"
           >
-            <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-lg shadow-slate-950/10 ring-1 ring-primary/20 transition-transform group-hover:scale-105 md:h-14 md:w-14">
+            <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-transparent transition-transform group-hover:scale-105 md:h-14 md:w-14">
               <img
                 src={brand?.logo || "/logo.png"}
                 alt={brand?.name || "WM Soluções"}
-                className="max-h-10 w-auto object-contain md:max-h-12"
+                className="max-h-12 w-auto object-contain drop-shadow-lg md:max-h-14"
               />
             </span>
 
-            <span
-              className={`text-lg font-black tracking-tight transition-colors md:text-2xl ${
-                isScrolled || mobileMenuOpen ? "text-slate-950" : "text-white"
-              }`}
-            >
+            <span className="text-lg font-black tracking-tight text-white transition-colors md:text-2xl">
               {brand?.namePart1 || "WM"} <span className="text-primary">{brand?.namePart2 || "Soluções"}</span>
             </span>
           </a>
 
-          <div
-            className={`hidden items-center rounded-full border px-2 py-2 lg:flex ${
-              isScrolled
-                ? "border-slate-200 bg-slate-50/80"
-                : "border-white/10 bg-white/10"
-            }`}
-          >
+          <div className="hidden items-center rounded-full border border-white/10 bg-white/10 px-2 py-2 lg:flex">
             {navLinks.map((link: any) => (
               <a
                 key={link.name}
@@ -95,9 +85,7 @@ export default function Navbar() {
                   e.preventDefault();
                   scrollTo(link.href);
                 }}
-                className={`group relative rounded-full px-4 py-2 text-sm font-bold transition-all hover:text-primary ${
-                  isScrolled ? "text-slate-700" : "text-white/90"
-                }`}
+                className="group relative rounded-full px-4 py-2 text-sm font-bold text-white/90 transition-all hover:text-primary"
               >
                 <span className="relative z-10">{link.name}</span>
                 <span className="absolute inset-0 scale-90 rounded-full bg-primary/10 opacity-0 transition-all group-hover:scale-100 group-hover:opacity-100" />
@@ -116,11 +104,7 @@ export default function Navbar() {
           </div>
 
           <button
-            className={`flex h-11 w-11 items-center justify-center rounded-2xl border transition-all lg:hidden ${
-              isScrolled || mobileMenuOpen
-                ? "border-slate-200 bg-slate-100 text-slate-950"
-                : "border-white/15 bg-white/10 text-white"
-            }`}
+            className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/10 text-white transition-all hover:bg-white/15 lg:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={navbar?.menuLabel || "Menu"}
           >
@@ -135,9 +119,9 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto", y: 0 }}
               exit={{ opacity: 0, height: 0, y: -8 }}
               transition={{ duration: 0.24, ease: "easeOut" }}
-              className="overflow-hidden border-t border-slate-200/70 px-4 pb-4 lg:hidden"
+              className="overflow-hidden border-t border-white/10 px-4 pb-4 lg:hidden"
             >
-              <div className="mt-3 grid gap-2 rounded-[1.4rem] bg-slate-50 p-2">
+              <div className="mt-3 grid gap-2 rounded-[1.4rem] bg-white/10 p-2 backdrop-blur-xl">
                 {navLinks.map((link: any, index: number) => (
                   <motion.a
                     key={link.name}
@@ -149,7 +133,7 @@ export default function Navbar() {
                       e.preventDefault();
                       scrollTo(link.href);
                     }}
-                    className="rounded-2xl px-4 py-3 text-base font-black text-slate-800 transition-all hover:bg-white hover:text-primary hover:shadow-sm"
+                    className="rounded-2xl px-4 py-3 text-base font-black text-white transition-all hover:bg-white/10 hover:text-primary"
                   >
                     {link.name}
                   </motion.a>
