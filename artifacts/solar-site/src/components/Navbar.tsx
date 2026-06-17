@@ -37,9 +37,17 @@ export default function Navbar() {
   };
 
   const scrollTo = (href: string) => {
+    const hash = href?.startsWith("#") ? href : `#${href}`;
+    const id = hash.slice(1);
     setMobileMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+
+    setTimeout(() => {
+      const el = document.getElementById(id) || document.querySelector(hash);
+      if (!el) return;
+      const offset = 105;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 100);
   };
 
   return (
