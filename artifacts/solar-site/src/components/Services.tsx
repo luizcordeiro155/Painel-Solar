@@ -64,15 +64,16 @@ export default function Services() {
     : ["Residencial", "Comercial", "Condomínios"];
 
   return (
-    <section id="servicos" className="relative overflow-hidden py-28 bg-gradient-to-b from-background via-white to-amber-50/50 dark:via-slate-950">
-      <div className="solar-glow left-[-10rem] top-24 opacity-60" />
+    <section id="servicos" className="relative overflow-hidden py-28 bg-gradient-to-b from-background via-amber-50/70 to-background md:from-[#d8d2c8] md:via-[#cec7bd] md:to-[#d9d2c7] dark:via-slate-950">
+      <div className="solar-glow left-[-10rem] top-24 opacity-45 md:opacity-35" />
+      <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_12%_18%,rgba(245,158,11,0.10),transparent_30rem),radial-gradient(circle_at_88%_28%,rgba(15,23,42,0.07),transparent_26rem)] md:block" />
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="mx-auto mb-10 max-w-4xl text-center">
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="section-eyebrow"
+            className="section-eyebrow bg-white/70 md:bg-white/55"
           >
             <Sparkles size={14} />
             {servicesContent?.eyebrow || "Nossas Soluções"}
@@ -91,7 +92,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.16 }}
-            className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+            className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-muted-foreground md:text-xl md:text-slate-700"
           >
             {servicesContent?.description || "Atendemos todos os perfis: desde uma residência familiar até grandes condomínios e estabelecimentos comerciais."}
           </motion.p>
@@ -107,7 +108,7 @@ export default function Services() {
             const Icon = segmentIcons[index] || Home;
 
             return (
-              <div key={label} className="flex items-center gap-2 rounded-full border border-primary/20 bg-white/75 px-5 py-3 text-sm font-black text-slate-800 shadow-lg shadow-slate-900/5 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-primary/40 hover:text-primary">
+              <div key={label} className="flex items-center gap-2 rounded-full border border-primary/20 bg-white/80 px-5 py-3 text-sm font-black text-slate-800 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition-all hover:-translate-y-1 hover:border-primary/40 hover:text-primary md:bg-white/72">
                 <Icon size={20} className="text-primary" />
                 {label}
               </div>
@@ -136,7 +137,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.58, delay: index * 0.09 }}
-                className={`premium-card group h-full p-6 ${featured ? "bg-slate-950 text-white" : "bg-white/85 text-slate-950"}`}
+                className={`premium-card group h-full p-6 md:shadow-2xl md:shadow-slate-900/14 ${featured ? "bg-slate-950 text-white" : "bg-white/90 text-slate-950 md:bg-white/86"}`}
               >
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="mb-7 flex items-start justify-between gap-4">
@@ -165,7 +166,7 @@ export default function Services() {
           })}
         </div>
 
-        <div className="mt-16 rounded-[2rem] border border-slate-200/70 bg-white/70 p-5 shadow-2xl shadow-slate-900/5 backdrop-blur-xl md:p-7">
+        <div className="mt-16 rounded-[2rem] border border-slate-200/70 bg-white/75 p-5 shadow-2xl shadow-slate-900/10 backdrop-blur-xl md:bg-white/72 md:p-7">
           <div className="mb-7 text-center">
             <p className="text-xs font-black uppercase tracking-[0.24em] text-secondary">Execução completa</p>
             <h3 className="mt-2 text-2xl font-black tracking-tight text-foreground md:text-3xl">
@@ -184,7 +185,7 @@ export default function Services() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.52, delay: index * 0.08 }}
-                  className="group rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary/10"
+                  className="group rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/8 transition-all hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary/10"
                 >
                   <div className="mb-5 flex h-13 w-13 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-all group-hover:bg-secondary group-hover:text-white">
                     <Icon size={27} />
