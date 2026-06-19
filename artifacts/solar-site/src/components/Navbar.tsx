@@ -44,25 +44,23 @@ export default function Navbar() {
     setTimeout(() => {
       const el = document.getElementById(id) || document.querySelector(hash);
       if (!el) return;
-      const offset = 105;
+      const offset = 86;
       const top = el.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: "smooth" });
     }, 100);
   };
 
   return (
-    <nav className="fixed left-0 top-0 z-50 w-full px-3 pt-3 transition-all duration-500 md:px-6">
+    <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-slate-950/92 shadow-lg shadow-slate-950/20 backdrop-blur-2xl transition-all duration-500">
       <motion.div
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: "easeOut" }}
-        className={`mx-auto max-w-7xl rounded-[1.7rem] border border-white/10 bg-slate-950/88 shadow-2xl backdrop-blur-2xl transition-all duration-500 ${
-          isScrolled || mobileMenuOpen
-            ? "shadow-slate-950/30 ring-1 ring-primary/10"
-            : "shadow-black/10"
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className={`mx-auto max-w-7xl transition-all duration-500 ${
+          isScrolled || mobileMenuOpen ? "bg-slate-950/96" : "bg-transparent"
         }`}
       >
-        <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-5">
+        <div className="flex h-[76px] items-center justify-between gap-4 px-4 md:px-6">
           <a
             href="#"
             onClick={(e) => {
@@ -71,7 +69,7 @@ export default function Navbar() {
             }}
             className="group flex flex-shrink-0 items-center gap-3"
           >
-            <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-transparent transition-transform group-hover:scale-105 md:h-14 md:w-14">
+            <span className="relative flex h-12 w-12 items-center justify-center bg-transparent transition-transform group-hover:scale-105 md:h-14 md:w-14">
               <img
                 src={brand?.logo || "/logo.png"}
                 alt={brand?.name || "WM Soluções"}
@@ -84,7 +82,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          <div className="hidden items-center rounded-full border border-white/10 bg-white/10 px-2 py-2 lg:flex">
+          <div className="hidden items-center rounded-full border border-white/10 bg-white/[0.08] px-2 py-2 lg:flex">
             {navLinks.map((link: any) => (
               <a
                 key={link.name}
