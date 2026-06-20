@@ -14,7 +14,6 @@ const fallbackNavLinks = [
 
 export default function Navbar() {
   const content = useSiteContent();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const brand = content?.brand;
@@ -23,10 +22,12 @@ export default function Navbar() {
   const navLinks = navbar?.links?.length ? navbar.links : fallbackNavLinks;
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 18);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const closeOnResize = () => {
+      if (window.innerWidth >= 1024) setMobileMenuOpen(false);
+    };
+
+    window.addEventListener("resize", closeOnResize);
+    return () => window.removeEventListener("resize", closeOnResize);
   }, []);
 
   const handleWhatsApp = () => {
@@ -51,14 +52,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-slate-950/92 shadow-lg shadow-slate-950/20 backdrop-blur-2xl transition-all duration-500">
+    <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#070b1a] shadow-lg shadow-slate-950/20 backdrop-blur-2xl">
       <motion.div
         initial={{ y: -16, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.45, ease: "easeOut" }}
-        className={`mx-auto max-w-7xl transition-all duration-500 ${
-          isScrolled || mobileMenuOpen ? "bg-slate-950/96" : "bg-transparent"
-        }`}
+        className="mx-auto max-w-7xl bg-[#070b1a]"
       >
         <div className="flex h-[76px] items-center justify-between gap-4 px-4 md:px-6">
           <a
@@ -125,7 +124,7 @@ export default function Navbar() {
               animate={{ opacity: 1, height: "auto", y: 0 }}
               exit={{ opacity: 0, height: 0, y: -8 }}
               transition={{ duration: 0.24, ease: "easeOut" }}
-              className="overflow-hidden border-t border-white/10 px-4 pb-4 lg:hidden"
+              className="overflow-hidden border-t border-white/10 bg-[#070b1a] px-4 pb-4 lg:hidden"
             >
               <div className="mt-3 grid gap-2 rounded-[1.4rem] bg-white/10 p-2 backdrop-blur-xl">
                 {navLinks.map((link: any, index: number) => (
