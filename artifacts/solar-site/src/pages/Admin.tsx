@@ -337,7 +337,13 @@ export default function Admin() {
   if (!authorized) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-slate-950 p-4">
-        <div className="bg-white rounded-2xl p-8 w-full max-w-md">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            login();
+          }}
+          className="bg-white rounded-2xl p-8 w-full max-w-md"
+        >
           <h1 className="text-3xl font-black mb-6">Admin WM Soluções</h1>
 
           <input
@@ -346,15 +352,16 @@ export default function Admin() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full border rounded-lg p-3 mb-4"
+            autoFocus
           />
 
           <button
-            onClick={login}
+            type="submit"
             className="w-full bg-primary text-white font-bold py-3 rounded-lg"
           >
             Entrar
           </button>
-        </div>
+        </form>
       </main>
     );
   }
