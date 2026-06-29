@@ -235,32 +235,32 @@
     "projects": [
       {
         "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=536,fit=crop/AQEe1QVM8Xs8L7D9/img_20211013_141005961-Awv8ZV5PVxTe2rqn.jpg",
-        "alt": "Instalação de aquecedor solar residencial com tubos a vácuo",
-        "label": "Sistema a Vácuo — Residencial"
+        "alt": "Sistema  Convencional ",
+        "label": "Sistema  Convencional — Residencial"
       },
       {
         "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=538,fit=crop/AQEe1QVM8Xs8L7D9/20230721_084450-A85MNelM35HyKr4N.jpg",
-        "alt": "Coletores solares planos instalados em residência moderna",
-        "label": "Sistema Convencional — Residencial"
+        "alt": "Sistema a Vácuo",
+        "label": "Sistema a Vácuo— Residencial"
       },
       {
         "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=538,fit=crop/AQEe1QVM8Xs8L7D9/20240422_170641-m6L25ZzGbjFrJ2E8.jpg",
-        "alt": "Aquecimento solar de piscina com coletores no telhado",
-        "label": "Aquecimento de Piscina"
+        "alt": "Sistema  Convencional com Módulo — Residencial",
+        "label": "Sistema  Convencional com Módulo"
       },
       {
         "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=536,fit=crop/AQEe1QVM8Xs8L7D9/20231228_094439-m6L25Zko9gUXqjNE.jpg",
         "alt": "Sistema solar em condomínio com múltiplos coletores organizados",
-        "label": "Sistema Solar — Condomínio"
+        "label": "Sistema Solar Convencional — Condomínio"
       },
       {
         "src": "/gallery-1.png",
-        "alt": "Detalhe dos tubos a vácuo do sistema de aquecimento solar",
-        "label": "Detalhe — Tubos a Vácuo"
+        "alt": "Sistema a Vácuo",
+        "label": "Sistema a Vácuo— Residencial"
       },
       {
         "src": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768,h=538,fit=crop/AQEe1QVM8Xs8L7D9/20240930_115819-mv0Po2g1g3tBeOMk.jpg",
-        "alt": "Aquecimento solar instalado em estabelecimento comercial",
+        "alt": "Aquecimento solar de piscina com coletores no telhado",
         "label": "Sistema Solar — Comercial"
       }
     ]
