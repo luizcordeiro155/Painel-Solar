@@ -1,3 +1,40 @@
-<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="180" height="180" rx="36" fill="#FF3C00"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">WM Solares</title>
+  <desc id="desc">Monograma WM com sol e painel solar</desc>
+  <defs>
+    <linearGradient id="navy" x1="110" y1="70" x2="410" y2="450" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B2B46"/>
+      <stop offset="1" stop-color="#031421"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="240" y1="90" x2="420" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD75A"/>
+      <stop offset="1" stop-color="#F2A900"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="110" y1="370" x2="410" y2="430" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#1668B2"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="244" fill="#FFFFFF"/>
+  <circle cx="256" cy="256" r="226" fill="url(#navy)" stroke="#F4B51E" stroke-width="8"/>
+
+  <g fill="url(#gold)">
+    <circle cx="256" cy="116" r="31"/>
+    <rect x="250" y="62" width="12" height="27" rx="6"/>
+    <rect x="250" y="143" width="12" height="27" rx="6"/>
+    <rect x="202" y="110" width="27" height="12" rx="6"/>
+    <rect x="283" y="110" width="27" height="12" rx="6"/>
+    <rect x="214" y="76" width="12" height="27" rx="6" transform="rotate(-45 214 76)"/>
+    <rect x="287" y="84" width="12" height="27" rx="6" transform="rotate(45 287 84)"/>
+  </g>
+
+  <path d="M76 178H119L145 292L177 206H211L243 292L269 178H312L273 348H236L194 255L152 348H115L76 178Z" fill="#FFFFFF"/>
+  <path d="M254 348V178H298L345 266L392 178H436V348H396V246L360 313H330L294 246V348H254Z" fill="url(#gold)"/>
+
+  <g>
+    <path d="M111 378H401L419 425H93L111 378Z" fill="url(#panel)" stroke="#8AD8FF" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M161 378L150 425M211 378L207 425M261 378V425M311 378L315 425M361 378L372 425" stroke="#D7F3FF" stroke-width="4" opacity="0.9"/>
+    <path d="M103 402H409" stroke="#D7F3FF" stroke-width="4" opacity="0.9"/>
+  </g>
 </svg>
