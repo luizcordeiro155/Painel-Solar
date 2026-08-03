@@ -1,3 +1,27 @@
+const FIXED_FAVICON_PATH = "/uploads/1782522774045-wm2.png";
+
+function protectSiteIdentity(value) {
+  const normalized =
+    value && typeof value === "object" && !Array.isArray(value)
+      ? JSON.parse(JSON.stringify(value))
+      : {};
+
+  if (
+    !normalized.brand ||
+    typeof normalized.brand !== "object" ||
+    Array.isArray(normalized.brand)
+  ) {
+    normalized.brand = {};
+  }
+
+  // O favicon oficial deve continuar usando a logo original da WM Solares.
+  // Esta proteção impede que uma aba antiga do /admin ou um conteúdo salvo
+  // anteriormente restaure o favicon antigo ao editar qualquer outra seção.
+  normalized.brand.favicon = FIXED_FAVICON_PATH;
+
+  return normalized;
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ success: false });
@@ -59,15 +83,23 @@ export default async function handler(req, res) {
     }
 
     const currentFile = await currentFileResponse.json();
-    const currentContent = JSON.parse(
+    const parsedCurrentContent = JSON.parse(
       Buffer.from(currentFile.content || "", "base64").toString("utf8")
     );
+    const currentContent = protectSiteIdentity(parsedCurrentContent);
 
     if (action === "load") {
       return res.status(200).json({
         success: true,
         content: currentContent,
         sha: currentFile.sha,
+      });
+    }
+
+    if (!content || typeof content !== "object" || Array.isArray(content)) {
+      return res.status(400).json({
+        success: false,
+        message: "Conteúdo inválido",
       });
     }
 
@@ -93,7 +125,8 @@ export default async function handler(req, res) {
       });
     }
 
-    const jsonContent = JSON.stringify(content, null, 2) + "\n";
+    const protectedContent = protectSiteIdentity(content);
+    const jsonContent = JSON.stringify(protectedContent, null, 2) + "\n";
     const encodedContent = Buffer.from(jsonContent, "utf8").toString("base64");
 
     const updateResponse = await fetch(
@@ -128,6 +161,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       success: true,
       message: "Conteúdo salvo com sucesso",
+      content: protectedContent,
       sha: updateData?.content?.sha || null,
     });
   } catch (error) {
