@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://wmsolares.com.br/sitemap.xml
+Sitemap: https://www.wmsolares.com.br/sitemap.xml
