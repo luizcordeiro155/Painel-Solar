@@ -1,5 +1,16 @@
 const FIXED_FAVICON_PATH = "/uploads/1782522774045-wm2.png";
 
+const FIXED_SEO = {
+  title: "Aquecedor Solar em Belo Horizonte | Banho e Piscina | WM Solares",
+  description:
+    "Instalação e manutenção de aquecedor solar para banho e piscina em Belo Horizonte e região. Sistemas convencionais e a vácuo. Orçamento gratuito.",
+  keywords:
+    "aquecedor solar belo horizonte, instalação de aquecedor solar, aquecimento solar de água, placa solar para banho, aquecimento solar para piscina, boiler solar, sistema solar a vácuo, sistema solar convencional, manutenção de aquecedor solar, aquecimento solar BH, aquecedor solar MG, WM Solares",
+  ogTitle: "Aquecedor Solar em Belo Horizonte | Banho e Piscina | WM Solares",
+  ogDescription:
+    "Aquecimento solar de água para banho e piscina em Belo Horizonte e região. Instalação, manutenção, sistemas convencionais e a vácuo.",
+};
+
 function protectSiteIdentity(value) {
   const normalized =
     value && typeof value === "object" && !Array.isArray(value)
@@ -14,10 +25,27 @@ function protectSiteIdentity(value) {
     normalized.brand = {};
   }
 
+  if (
+    !normalized.seo ||
+    typeof normalized.seo !== "object" ||
+    Array.isArray(normalized.seo)
+  ) {
+    normalized.seo = {};
+  }
+
   // O favicon oficial deve continuar usando a logo original da WM Solares.
   // Esta proteção impede que uma aba antiga do /admin ou um conteúdo salvo
   // anteriormente restaure o favicon antigo ao editar qualquer outra seção.
   normalized.brand.favicon = FIXED_FAVICON_PATH;
+
+  // O SEO técnico principal é definido em index.html/siteContent.tsx e nos
+  // arquivos sitemap.xml, robots.txt e llms.txt. Mantemos estes campos do
+  // site-content.json sincronizados com os valores atuais para que uma aba
+  // antiga do Admin nunca volte a salvar títulos e descrições anteriores.
+  normalized.seo = {
+    ...normalized.seo,
+    ...FIXED_SEO,
+  };
 
   return normalized;
 }
