@@ -5,7 +5,7 @@ export type SiteContent = Record<string, any>;
 
 const SiteContentContext = createContext<SiteContent | null>(null);
 
-const SITE_URL = "https://wmsolares.com.br";
+const SITE_URL = "https://www.wmsolares.com.br";
 
 function setMeta(name: string, content: string) {
   if (!content || typeof document === "undefined") return;
