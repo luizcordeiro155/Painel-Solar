@@ -5,6 +5,8 @@ export type SiteContent = Record<string, any>;
 
 const SiteContentContext = createContext<SiteContent | null>(null);
 
+const SITE_URL = "https://wmsolares.com.br";
+
 function setMeta(name: string, content: string) {
   if (!content || typeof document === "undefined") return;
 
@@ -13,11 +15,78 @@ function setMeta(name: string, content: string) {
     `meta[property="${name}"]`,
   ];
 
-  const tag = document.querySelector<HTMLMetaElement>(selectors.join(","));
+  let tag = document.querySelector<HTMLMetaElement>(selectors.join(","));
 
-  if (tag) {
-    tag.setAttribute("content", content);
+  if (!tag) {
+    tag = document.createElement("meta");
+    if (name.startsWith("og:")) {
+      tag.setAttribute("property", name);
+    } else {
+      tag.setAttribute("name", name);
+    }
+    document.head.appendChild(tag);
   }
+
+  tag.setAttribute("content", content);
+}
+
+function setCanonical(pathname: string) {
+  if (typeof document === "undefined") return;
+
+  let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+
+  const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/$/, "");
+  link.setAttribute("href", `${SITE_URL}${normalizedPath}`);
+  setMeta("og:url", `${SITE_URL}${normalizedPath}`);
+}
+
+function applyRouteSeo() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  const pathname = window.location.pathname;
+  setCanonical(pathname);
+
+  if (pathname === "/admin") {
+    document.title = "Administração | WM Solares";
+    setMeta("description", "Área administrativa da WM Solares.");
+    setMeta("robots", "noindex, nofollow, noarchive");
+    return;
+  }
+
+  if (pathname === "/termos-de-uso") {
+    document.title = "Termos de Uso | WM Solares";
+    setMeta(
+      "description",
+      "Consulte os termos de uso do site da WM Solares, empresa especializada em aquecimento solar de água em Belo Horizonte e região.",
+    );
+    setMeta("robots", "index, follow, max-image-preview:large");
+    return;
+  }
+
+  if (pathname === "/politica-de-privacidade") {
+    document.title = "Política de Privacidade | WM Solares";
+    setMeta(
+      "description",
+      "Saiba como a WM Solares trata dados e informações de contato enviados pelo site e pelos canais de atendimento.",
+    );
+    setMeta("robots", "index, follow, max-image-preview:large");
+    return;
+  }
+
+  document.title = "Aquecedor Solar em Belo Horizonte | Banho e Piscina | WM Solares";
+  setMeta(
+    "description",
+    "Instalação e manutenção de aquecedor solar para banho e piscina em Belo Horizonte e região. Sistemas convencionais e a vácuo. Orçamento gratuito.",
+  );
+  setMeta(
+    "robots",
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  );
 }
 
 export function SiteContentProvider({ children }: { children: ReactNode }) {
@@ -25,6 +94,8 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let mounted = true;
+
+    applyRouteSeo();
 
     fetch(`/site-content.json?v=${Date.now()}`, { cache: "no-store" })
       .then((res) => {
@@ -36,19 +107,7 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
       })
       .then((data) => {
         if (!mounted) return;
-
         setContent(data);
-
-        if (data?.seo?.title) {
-          document.title = data.seo.title;
-        }
-
-        setMeta("description", data?.seo?.description);
-        setMeta("keywords", data?.seo?.keywords);
-        setMeta("og:title", data?.seo?.ogTitle || data?.seo?.title);
-        setMeta("og:description", data?.seo?.ogDescription || data?.seo?.description);
-        setMeta("twitter:title", data?.seo?.ogTitle || data?.seo?.title);
-        setMeta("twitter:description", data?.seo?.ogDescription || data?.seo?.description);
       })
       .catch(console.error);
 
