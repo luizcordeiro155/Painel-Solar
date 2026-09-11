@@ -7,6 +7,7 @@ import {
 import { passwordMatches, validateAdminRequest } from "../server/admin-guard.js";
 
 const FIXED_FAVICON_PATH = "/uploads/1782522774045-wm2.png";
+const OFFICIAL_INSTAGRAM = "https://www.instagram.com/wm__solares/";
 const AUTH_LIMIT_NAMESPACE = "admin-auth";
 const AUTH_LIMIT = 5;
 const AUTH_WINDOW_MS = 15 * 60 * 1000;
@@ -28,23 +29,20 @@ function protectSiteIdentity(value) {
       ? JSON.parse(JSON.stringify(value))
       : {};
 
-  if (
-    !normalized.brand ||
-    typeof normalized.brand !== "object" ||
-    Array.isArray(normalized.brand)
-  ) {
+  if (!normalized.brand || typeof normalized.brand !== "object" || Array.isArray(normalized.brand)) {
     normalized.brand = {};
   }
 
-  if (
-    !normalized.seo ||
-    typeof normalized.seo !== "object" ||
-    Array.isArray(normalized.seo)
-  ) {
+  if (!normalized.seo || typeof normalized.seo !== "object" || Array.isArray(normalized.seo)) {
     normalized.seo = {};
   }
 
+  if (!normalized.contact || typeof normalized.contact !== "object" || Array.isArray(normalized.contact)) {
+    normalized.contact = {};
+  }
+
   normalized.brand.favicon = FIXED_FAVICON_PATH;
+  normalized.contact.instagram = OFFICIAL_INSTAGRAM;
   normalized.seo = {
     ...normalized.seo,
     ...FIXED_SEO,
@@ -81,12 +79,7 @@ export default async function handler(req, res) {
   } = process.env;
 
   const { action, password, content, baseSha } = req.body || {};
-  const authState = getAdminAuthState(
-    req,
-    AUTH_LIMIT_NAMESPACE,
-    AUTH_LIMIT,
-    AUTH_WINDOW_MS
-  );
+  const authState = getAdminAuthState(req, AUTH_LIMIT_NAMESPACE, AUTH_LIMIT, AUTH_WINDOW_MS);
 
   if (authState.blocked) {
     res.setHeader("Retry-After", String(authState.retryAfter));
@@ -99,12 +92,7 @@ export default async function handler(req, res) {
   }
 
   if (!ADMIN_PASSWORD || !passwordMatches(password, ADMIN_PASSWORD)) {
-    const nextAuthState = recordAdminAuthFailure(
-      req,
-      AUTH_LIMIT_NAMESPACE,
-      AUTH_LIMIT,
-      AUTH_WINDOW_MS
-    );
+    const nextAuthState = recordAdminAuthFailure(req, AUTH_LIMIT_NAMESPACE, AUTH_LIMIT, AUTH_WINDOW_MS);
 
     if (nextAuthState.blocked) {
       res.setHeader("Retry-After", String(nextAuthState.retryAfter));
@@ -139,10 +127,7 @@ export default async function handler(req, res) {
   }
 
   if (action !== "load" && action !== "save") {
-    return res.status(400).json({
-      success: false,
-      message: "Ação inválida",
-    });
+    return res.status(400).json({ success: false, message: "Ação inválida" });
   }
 
   if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
@@ -189,10 +174,7 @@ export default async function handler(req, res) {
     }
 
     if (!content || typeof content !== "object" || Array.isArray(content)) {
-      return res.status(400).json({
-        success: false,
-        message: "Conteúdo inválido",
-      });
+      return res.status(400).json({ success: false, message: "Conteúdo inválido" });
     }
 
     if (!baseSha) {
