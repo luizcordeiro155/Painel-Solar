@@ -1,3 +1,6 @@
+import { applyAdminRateLimit } from "../server/rate-limit.js";
+import { passwordMatches, validateAdminRequest } from "../server/admin-guard.js";
+
 const FIXED_FAVICON_PATH = "/uploads/1782522774045-wm2.png";
 
 const FIXED_SEO = {
@@ -33,15 +36,7 @@ function protectSiteIdentity(value) {
     normalized.seo = {};
   }
 
-  // O favicon oficial deve continuar usando a logo original da WM Solares.
-  // Esta proteção impede que uma aba antiga do /admin ou um conteúdo salvo
-  // anteriormente restaure o favicon antigo ao editar qualquer outra seção.
   normalized.brand.favicon = FIXED_FAVICON_PATH;
-
-  // O SEO técnico principal é definido em index.html/siteContent.tsx e nos
-  // arquivos sitemap.xml, robots.txt e llms.txt. Mantemos estes campos do
-  // site-content.json sincronizados com os valores atuais para que uma aba
-  // antiga do Admin nunca volte a salvar títulos e descrições anteriores.
   normalized.seo = {
     ...normalized.seo,
     ...FIXED_SEO,
@@ -50,9 +45,22 @@ function protectSiteIdentity(value) {
   return normalized;
 }
 
+function serverError(res, context, error) {
+  console.error(`[admin-content] ${context}`, {
+    message: error instanceof Error ? error.message : String(error || "unknown"),
+  });
+
+  return res.status(500).json({
+    success: false,
+    message: "Erro interno. Tente novamente em instantes.",
+  });
+}
+
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ success: false });
+  if (!validateAdminRequest(req, res)) return;
+
+  if (!applyAdminRateLimit(req, res, "admin-content", 60, 60 * 1000)) {
+    return;
   }
 
   const {
@@ -66,10 +74,16 @@ export default async function handler(req, res) {
 
   const { action, password, content, baseSha } = req.body || {};
 
-  if (!ADMIN_PASSWORD || password !== ADMIN_PASSWORD) {
+  if (action === "login") {
+    if (!applyAdminRateLimit(req, res, "admin-login", 5, 15 * 60 * 1000)) {
+      return;
+    }
+  }
+
+  if (!ADMIN_PASSWORD || !passwordMatches(password, ADMIN_PASSWORD)) {
     return res.status(401).json({
       success: false,
-      message: "Senha incorreta",
+      message: "Credenciais inválidas",
     });
   }
 
@@ -85,9 +99,10 @@ export default async function handler(req, res) {
   }
 
   if (!GITHUB_TOKEN || !GITHUB_OWNER || !GITHUB_REPO) {
+    console.error("[admin-content] Variáveis obrigatórias do GitHub ausentes");
     return res.status(500).json({
       success: false,
-      message: "Variáveis do GitHub não configuradas",
+      message: "Erro interno. Tente novamente em instantes.",
     });
   }
 
@@ -103,10 +118,12 @@ export default async function handler(req, res) {
     });
 
     if (!currentFileResponse.ok) {
-      return res.status(500).json({
+      console.error("[admin-content] Falha ao buscar conteúdo no GitHub", {
+        status: currentFileResponse.status,
+      });
+      return res.status(502).json({
         success: false,
-        message: "Erro ao buscar arquivo no GitHub",
-        error: await currentFileResponse.text(),
+        message: "Não foi possível acessar o conteúdo do site.",
       });
     }
 
@@ -177,10 +194,12 @@ export default async function handler(req, res) {
     );
 
     if (!updateResponse.ok) {
-      return res.status(500).json({
+      console.error("[admin-content] Falha ao salvar conteúdo no GitHub", {
+        status: updateResponse.status,
+      });
+      return res.status(502).json({
         success: false,
-        message: "Erro ao salvar no GitHub",
-        error: await updateResponse.text(),
+        message: "Não foi possível salvar o conteúdo agora.",
       });
     }
 
@@ -193,10 +212,6 @@ export default async function handler(req, res) {
       sha: updateData?.content?.sha || null,
     });
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Erro interno",
-      error: error.message,
-    });
+    return serverError(res, "Erro inesperado", error);
   }
 }
