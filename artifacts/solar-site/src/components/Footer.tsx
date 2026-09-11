@@ -1,5 +1,12 @@
-import { Instagram, MapPin, Mail, Phone, MessageCircle } from "lucide-react";
+import { Github, Instagram, MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { useSiteContent, telUrl, whatsappUrl } from "@/lib/siteContent";
+
+const DEVELOPER_CREDIT = {
+  prefix: "Desenvolvido por",
+  name: "LHCDS",
+  services: "Criação de Websites e Automações",
+  href: "https://github.com/luizcordeiro155",
+};
 
 export default function Footer() {
   const content = useSiteContent();
@@ -161,14 +168,32 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-            <p>
-              &copy; {currentYear}{" "}
-              <span className="text-slate-400">
-                {footer?.copyright || "WM Soluções — Aquecedores Solares."}
-              </span>{" "}
-              {footer?.rights || "Todos os direitos reservados."}
-            </p>
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 text-xs text-slate-600">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+              <p>
+                &copy; {currentYear}{" "}
+                <span className="text-slate-400">
+                  {footer?.copyright || "WM Soluções — Aquecedores Solares."}
+                </span>{" "}
+                {footer?.rights || "Todos os direitos reservados."}
+              </p>
+
+              <a
+                href={DEVELOPER_CREDIT.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Desenvolvido por LHCDS — Criação de Websites e Automações"
+                className="group inline-flex w-fit items-center gap-2 rounded-full border border-slate-800 bg-slate-900/60 px-3 py-2 text-slate-500 transition-all hover:border-primary/50 hover:bg-slate-900 hover:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
+                data-testid="lhcds-developer-credit"
+              >
+                <Github size={14} className="text-slate-500 transition-colors group-hover:text-primary" />
+                <span>{DEVELOPER_CREDIT.prefix}</span>
+                <strong className="font-bold text-slate-300 group-hover:text-primary transition-colors">
+                  {DEVELOPER_CREDIT.name}
+                </strong>
+                <span className="hidden sm:inline">— {DEVELOPER_CREDIT.services}</span>
+              </a>
+            </div>
 
             <div className="flex gap-6">
               <a
