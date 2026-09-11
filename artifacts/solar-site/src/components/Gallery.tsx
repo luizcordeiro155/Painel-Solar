@@ -36,6 +36,37 @@ const fallbackProjects = [
   },
 ];
 
+function fallbackSrc(index: number) {
+  return fallbackProjects[index % fallbackProjects.length]?.src || "/gallery-1.png";
+}
+
+function GalleryImage({
+  src,
+  fallback,
+  alt,
+  className,
+}: {
+  src?: string;
+  fallback: string;
+  alt: string;
+  className: string;
+}) {
+  const [currentSrc, setCurrentSrc] = useState(src || fallback);
+
+  return (
+    <img
+      src={currentSrc}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      decoding="async"
+      onError={() => {
+        if (currentSrc !== fallback) setCurrentSrc(fallback);
+      }}
+    />
+  );
+}
+
 export default function Gallery() {
   const content = useSiteContent();
   const gallery = content?.gallery;
@@ -79,31 +110,37 @@ export default function Gallery() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project: any, index: number) => (
-            <motion.div
-              key={project.src || index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300"
-              onClick={() => setLightbox(index)}
-              data-testid={`gallery-item-${index}`}
-            >
-              <img
-                src={project.src}
-                alt={project.alt || project.label || "Projeto realizado"}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="text-white font-bold text-sm md:text-base">{project.label}</p>
-              </div>
-              <div className="absolute top-4 right-4 bg-white/90 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-75 group-hover:scale-100">
-                <ZoomIn size={18} className="text-slate-800" />
-              </div>
-            </motion.div>
-          ))}
+          {projects.map((project: any, index: number) => {
+            const localFallback = fallbackSrc(index);
+            const alt = project.alt || project.label || "Projeto realizado";
+
+            return (
+              <motion.div
+                key={`${project.src || localFallback}-${index}`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                className="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 bg-slate-100"
+                onClick={() => setLightbox(index)}
+                data-testid={`gallery-item-${index}`}
+              >
+                <GalleryImage
+                  src={project.src}
+                  fallback={localFallback}
+                  alt={alt}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                  <p className="text-white font-bold text-sm md:text-base">{project.label}</p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-75 group-hover:scale-100">
+                  <ZoomIn size={18} className="text-slate-800" />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
@@ -141,8 +178,9 @@ export default function Gallery() {
               className="max-w-5xl w-full mx-14 md:mx-20"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <GalleryImage
                 src={projects[lightbox].src}
+                fallback={fallbackSrc(lightbox)}
                 alt={projects[lightbox].alt || projects[lightbox].label || "Projeto realizado"}
                 className="w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
               />
