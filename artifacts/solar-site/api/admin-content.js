@@ -1,7 +1,7 @@
 import {
-  allowAdminAuthAttempt,
   applyAdminRateLimit,
   clearAdminAuthFailures,
+  getAdminAuthState,
   recordAdminAuthFailure,
 } from "../server/rate-limit.js";
 import { passwordMatches, validateAdminRequest } from "../server/admin-guard.js";
@@ -81,23 +81,61 @@ export default async function handler(req, res) {
   } = process.env;
 
   const { action, password, content, baseSha } = req.body || {};
+  const authState = getAdminAuthState(
+    req,
+    AUTH_LIMIT_NAMESPACE,
+    AUTH_LIMIT,
+    AUTH_WINDOW_MS
+  );
 
-  if (!allowAdminAuthAttempt(req, res, AUTH_LIMIT_NAMESPACE, AUTH_LIMIT, AUTH_WINDOW_MS)) {
-    return;
+  if (authState.blocked) {
+    res.setHeader("Retry-After", String(authState.retryAfter));
+    return res.status(429).json({
+      success: false,
+      message: "Acesso temporariamente bloqueado por excesso de tentativas.",
+      auth: authState,
+      retryAfter: authState.retryAfter,
+    });
   }
 
   if (!ADMIN_PASSWORD || !passwordMatches(password, ADMIN_PASSWORD)) {
-    recordAdminAuthFailure(req, AUTH_LIMIT_NAMESPACE, AUTH_WINDOW_MS);
+    const nextAuthState = recordAdminAuthFailure(
+      req,
+      AUTH_LIMIT_NAMESPACE,
+      AUTH_LIMIT,
+      AUTH_WINDOW_MS
+    );
+
+    if (nextAuthState.blocked) {
+      res.setHeader("Retry-After", String(nextAuthState.retryAfter));
+      return res.status(429).json({
+        success: false,
+        message: "Limite de tentativas atingido. O acesso foi temporariamente bloqueado.",
+        auth: nextAuthState,
+        retryAfter: nextAuthState.retryAfter,
+      });
+    }
+
     return res.status(401).json({
       success: false,
-      message: "Credenciais inválidas",
+      message: "Senha incorreta.",
+      auth: nextAuthState,
     });
   }
 
   clearAdminAuthFailures(req, AUTH_LIMIT_NAMESPACE);
 
   if (action === "login") {
-    return res.status(200).json({ success: true });
+    return res.status(200).json({
+      success: true,
+      auth: {
+        failedAttempts: 0,
+        attemptsRemaining: AUTH_LIMIT,
+        maxAttempts: AUTH_LIMIT,
+        retryAfter: 0,
+        blocked: false,
+      },
+    });
   }
 
   if (action !== "load" && action !== "save") {

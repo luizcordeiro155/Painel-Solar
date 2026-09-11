@@ -53,9 +53,13 @@ function getActiveItem(req, namespace, windowMs) {
   return { key, item, now, limits };
 }
 
+function retryAfterSeconds(item, now) {
+  return Math.max(1, Math.ceil((item.resetAt - now) / 1000));
+}
+
 function setRateHeaders(res, item, limit, now) {
   const remaining = Math.max(0, limit - item.count);
-  const retryAfter = Math.max(1, Math.ceil((item.resetAt - now) / 1000));
+  const retryAfter = retryAfterSeconds(item, now);
 
   res.setHeader("X-RateLimit-Limit", String(limit));
   res.setHeader("X-RateLimit-Remaining", String(remaining));
@@ -68,7 +72,7 @@ function respondRateLimited(res, retryAfter) {
   res.setHeader("Retry-After", String(retryAfter));
   res.status(429).json({
     success: false,
-    message: "Muitas tentativas. Aguarde alguns minutos e tente novamente.",
+    message: "Muitas solicitações. Aguarde e tente novamente.",
     retryAfter,
   });
 }
@@ -89,22 +93,29 @@ export function applyAdminRateLimit(req, res, namespace, limit, windowMs) {
   return true;
 }
 
-export function allowAdminAuthAttempt(req, res, namespace, limit, windowMs) {
-  const { item, now } = getActiveItem(req, namespace, windowMs);
-  const retryAfter = setRateHeaders(res, item, limit, now);
+function authStateFrom(item, now, limit) {
+  const failedAttempts = Math.max(0, item.count);
+  const attemptsRemaining = Math.max(0, limit - failedAttempts);
 
-  if (item.count >= limit) {
-    respondRateLimited(res, retryAfter);
-    return false;
-  }
-
-  return true;
+  return {
+    failedAttempts,
+    attemptsRemaining,
+    maxAttempts: limit,
+    retryAfter: attemptsRemaining === 0 ? retryAfterSeconds(item, now) : 0,
+    blocked: attemptsRemaining === 0,
+  };
 }
 
-export function recordAdminAuthFailure(req, namespace, windowMs) {
-  const { item, limits, key } = getActiveItem(req, namespace, windowMs);
+export function getAdminAuthState(req, namespace, limit, windowMs) {
+  const { item, now } = getActiveItem(req, namespace, windowMs);
+  return authStateFrom(item, now, limit);
+}
+
+export function recordAdminAuthFailure(req, namespace, limit, windowMs) {
+  const { item, now, limits, key } = getActiveItem(req, namespace, windowMs);
   item.count += 1;
   limits.set(key, item);
+  return authStateFrom(item, now, limit);
 }
 
 export function clearAdminAuthFailures(req, namespace) {
