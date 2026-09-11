@@ -1,7 +1,15 @@
-import { applyAdminRateLimit } from "../server/rate-limit.js";
+import {
+  allowAdminAuthAttempt,
+  applyAdminRateLimit,
+  clearAdminAuthFailures,
+  recordAdminAuthFailure,
+} from "../server/rate-limit.js";
 import { passwordMatches, validateAdminRequest } from "../server/admin-guard.js";
 
 const FIXED_FAVICON_PATH = "/uploads/1782522774045-wm2.png";
+const AUTH_LIMIT_NAMESPACE = "admin-auth";
+const AUTH_LIMIT = 5;
+const AUTH_WINDOW_MS = 15 * 60 * 1000;
 
 const FIXED_SEO = {
   title: "Aquecedor Solar em Belo Horizonte | Banho e Piscina | WM Solares",
@@ -59,7 +67,7 @@ function serverError(res, context, error) {
 export default async function handler(req, res) {
   if (!validateAdminRequest(req, res)) return;
 
-  if (!applyAdminRateLimit(req, res, "admin-content", 60, 60 * 1000)) {
+  if (!applyAdminRateLimit(req, res, "admin-content", 120, 60 * 1000)) {
     return;
   }
 
@@ -74,18 +82,19 @@ export default async function handler(req, res) {
 
   const { action, password, content, baseSha } = req.body || {};
 
-  if (action === "login") {
-    if (!applyAdminRateLimit(req, res, "admin-login", 5, 15 * 60 * 1000)) {
-      return;
-    }
+  if (!allowAdminAuthAttempt(req, res, AUTH_LIMIT_NAMESPACE, AUTH_LIMIT, AUTH_WINDOW_MS)) {
+    return;
   }
 
   if (!ADMIN_PASSWORD || !passwordMatches(password, ADMIN_PASSWORD)) {
+    recordAdminAuthFailure(req, AUTH_LIMIT_NAMESPACE, AUTH_WINDOW_MS);
     return res.status(401).json({
       success: false,
       message: "Credenciais inválidas",
     });
   }
+
+  clearAdminAuthFailures(req, AUTH_LIMIT_NAMESPACE);
 
   if (action === "login") {
     return res.status(200).json({ success: true });
