@@ -8,6 +8,8 @@ const DEVELOPER_CREDIT = {
   href: "https://github.com/luizcordeiro155",
 };
 
+const OFFICIAL_INSTAGRAM = "https://www.instagram.com/wm__solares/";
+
 export default function Footer() {
   const content = useSiteContent();
   const currentYear = new Date().getFullYear();
@@ -67,10 +69,10 @@ export default function Footer() {
 
             <div className="flex gap-3 pt-1">
               <a
-                href={contact?.instagram || "https://www.instagram.com/wm__solucoes/"}
+                href={OFFICIAL_INSTAGRAM}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label="Instagram WM Solares"
                 className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
               >
                 <Instagram size={17} />
@@ -86,10 +88,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {navLinks.map(({ name, href }: any) => (
                 <li key={name}>
-                  <a
-                    href={href}
-                    className="text-sm text-slate-400 hover:text-primary transition-colors"
-                  >
+                  <a href={href} className="text-sm text-slate-400 hover:text-primary transition-colors">
                     {name}
                   </a>
                 </li>
@@ -105,10 +104,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {solutions.map(({ name, href }: any) => (
                 <li key={name}>
-                  <a
-                    href={href}
-                    className="text-sm text-slate-400 hover:text-primary transition-colors"
-                  >
+                  <a href={href} className="text-sm text-slate-400 hover:text-primary transition-colors">
                     {name}
                   </a>
                 </li>
@@ -123,10 +119,7 @@ export default function Footer() {
 
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin
-                  className="text-primary flex-shrink-0 mt-0.5"
-                  size={16}
-                />
+                <MapPin className="text-primary flex-shrink-0 mt-0.5" size={16} />
                 <span className="text-sm leading-relaxed">
                   {contact?.city || "Belo Horizonte — MG"}
                   <br />{contact?.region || "e Região Metropolitana"}
@@ -135,10 +128,7 @@ export default function Footer() {
 
               <li className="flex items-center gap-3">
                 <Phone className="text-primary flex-shrink-0" size={16} />
-                <a
-                  href={telUrl(contact?.phoneRaw || "5531997544806")}
-                  className="text-sm hover:text-primary transition-colors"
-                >
+                <a href={telUrl(contact?.phoneRaw || "5531997544806")} className="text-sm hover:text-primary transition-colors">
                   {contact?.phone || "(31) 99754-4806"}
                 </a>
               </li>
@@ -196,17 +186,10 @@ export default function Footer() {
             </div>
 
             <div className="flex gap-6">
-              <a
-                href="/termos-de-uso"
-                className="hover:text-slate-400 transition-colors"
-              >
+              <a href="/termos-de-uso" className="hover:text-slate-400 transition-colors">
                 {footer?.termsLabel || "Termos de Uso"}
               </a>
-
-              <a
-                href="/politica-de-privacidade"
-                className="hover:text-slate-400 transition-colors"
-              >
+              <a href="/politica-de-privacidade" className="hover:text-slate-400 transition-colors">
                 {footer?.privacyLabel || "Política de Privacidade"}
               </a>
             </div>
