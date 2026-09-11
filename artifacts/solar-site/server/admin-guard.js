@@ -1,4 +1,4 @@
-import { timingSafeEqual } from "node:crypto";
+import { createHash, timingSafeEqual } from "node:crypto";
 
 function firstHeader(value) {
   return String(Array.isArray(value) ? value[0] || "" : value || "")
@@ -34,7 +34,7 @@ export function validateAdminRequest(req, res) {
 
   if (origin) {
     try {
-      if (new URL(origin).host.toLowerCase() !== host) {
+      if (!host || new URL(origin).host.toLowerCase() !== host) {
         res.status(403).json({ success: false, message: "Origem não permitida" });
         return false;
       }
@@ -50,8 +50,7 @@ export function validateAdminRequest(req, res) {
 export function passwordMatches(provided, expected) {
   if (typeof provided !== "string" || typeof expected !== "string") return false;
 
-  const a = Buffer.from(provided);
-  const b = Buffer.from(expected);
-  if (a.length !== b.length) return false;
+  const a = createHash("sha256").update(provided).digest();
+  const b = createHash("sha256").update(expected).digest();
   return timingSafeEqual(a, b);
 }
